@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<main id="home">
+    <section>
+        <h2>Introduction</h2>
+    </section>
+
+    <section>
+        <h2>Demonstration</h2>
+
+        <p>The example users are :</p>
+        <ul>
+            {% for user in allUsers %}
+            <li>
+                {{ user.name }}
+                <hr> {{ user.email }}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+</main>
+{% endblock %}
