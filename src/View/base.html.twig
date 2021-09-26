@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Blog PHP{% endblock %}</title>
+    <title>{% block title %}Blog - Maxime Doutreluingne{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block stylesheets %}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -16,26 +16,70 @@
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li>
-                <a href="index.php?access=home" accesskey="h" title="Home">
-                    <i class="fas fa-home fa-fw fa-3x" aria-hidden="true"></i>
-                </a>
-            </li>
-            <li>
-                <a href="mailto:admin@philippebeck.net" accesskey="c" title="Contact">
-                    <i class="fas fa-at fa-fw fa-3x" aria-hidden="true"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <header class="header">
+        <!-- Main Navbar-->
+        <nav class="navbar navbar-expand-lg">
+            <div class="search-area">
+                <div class="search-area-inner d-flex align-items-center justify-content-center">
+                    <div class="close-btn"><i class="icon-close"></i></div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8">
+                            <form action="#">
+                                <div class="form-group">
+                                    <input type="search" name="search" id="search"
+                                        placeholder="What are you looking for?">
+                                    <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <!-- Navbar Brand -->
+                <div class="navbar-header d-flex align-items-center justify-content-between">
+                    <!-- Navbar Brand --><a href="index.php?access=home" class="navbar-brand">Maxime Doutreluingne</a>
+                    <!-- Toggle Button-->
+                    <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
+                        aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
+                        class="navbar-toggler"><span></span><span></span><span></span></button>
+                </div>
+                <!-- Navbar Menu -->
+                <div id="navbarcollapse" class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a href="blog.html" class="nav-link ">Blog</a>
+                        </li>
+                        <li class="nav-item"><a href="index.php?access=contact" class=" nav-link ">Contact</a>
+                        </li>
+                        <li class="nav-item"><a href="post.html" class="nav-link ">Se connecter</a>
+                        </li>
+                        <li class="nav-item"><a href="post.html" class="nav-link ">S'inscrire</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     {% block body %}{% endblock %}
 
     {% block footer %}
-        <footer>
-            
+        <footer class="main-footer">
+            <div class="copyrights">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>&copy; {{ "now"|date("Y") }}. All rights reserved.</p>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <p>Template By <a href="https://bootstrapious.com/p/bootstrap-carousel"
+                                    class="text-white">Bootstrapious</a>
+                                <!-- Please do not remove the backlink to Bootstrap Temple unless you purchase an attribution-free license @ Bootstrap Temple or support us at http://bootstrapious.com/donate. It is part of the license conditions. Thanks for understanding :)                         -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </footer>
     {% endblock %}
 
