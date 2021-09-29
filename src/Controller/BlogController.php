@@ -13,7 +13,7 @@ use App\Model\Factory\ModelFactory;
  * Manages the Homepage
  * @package App\Controller
  */
-class HomeController extends BaseController
+class BlogController extends BaseController
 {
     /**
      * Renders the View Home
@@ -24,9 +24,11 @@ class HomeController extends BaseController
      */
     public function defaultMethod()
     {
+        $allPosts = ModelFactory::getModel("Post")->listPosts();
         $lastPosts = ModelFactory::getModel("Post")->listLastPosts();
 
-        return $this->twig->render("home/home.html.twig", [
+        return $this->twig->render("blog/blog.html.twig", [
+            "allPosts" => $allPosts,
             "lastPosts" => $lastPosts
         ]);
     }

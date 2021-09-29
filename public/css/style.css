@@ -6,8 +6,8 @@ Bootstrap Temple Blog Template
 
 =========================================
 ========================================= */
-/*
 
+/*
 * =====================
 * GENERAL
 * =====================
@@ -37,7 +37,8 @@ span {
   transition: all 0.3s;
 }
 
-a:hover, a:focus,
+a:hover, 
+a:focus,
 i:hover,
 i:focus,
 span:hover,
@@ -595,11 +596,11 @@ div[class*="-btn"] {
 }
 
 .navbar .navbar-nav a.nav-link:hover {
-  color: #999;
+  color: #08b8f8;
 }
 
 .navbar .navbar-nav a.nav-link.active {
-  color: #999;
+  color: #08b8f8;
   font-weight: bold;
 }
 
@@ -722,6 +723,8 @@ section.featured-posts .comments {
   color: #999;
 }
 
+
+
 section.featured-posts .title i,
 section.featured-posts .date i,
 section.featured-posts .comments i {
@@ -820,8 +823,12 @@ section.latest-posts header {
 }
 
 .post-meta .date {
-  text-transform: uppercase;
   font-weight: 400;
+}
+
+.post-meta .created-at {
+  color: #08b8f8 !important;
+  font-weight: 550 !important;
 }
 
 .post-meta .date::after {
@@ -865,7 +872,6 @@ section.latest-posts header {
 .post .date {
   letter-spacing: 0.05em;
   font-weight: 400;
-  text-transform: uppercase;
   color: #aaa;
 }
 
@@ -884,7 +890,6 @@ section.latest-posts header {
 .post .views {
   font-weight: 400;
   color: #999;
-  text-transform: capitalize;
 }
 
 .post .title i,
@@ -1623,6 +1628,10 @@ STYLE SWITCHER FOR DEMO
 
 .navbar-light .navbar-brand {
   color: rgba(0, 0, 0, 0.9);
+}
+
+.navbar-brand:hover {
+  color: #08b8f8;
 }
 
 .navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
@@ -2673,104 +2682,6 @@ a.text-dark:focus, a.text-dark:hover {
     left: 0;
     margin-top: 8px;
     background-color: #08b8f8;
-}
-
-.padd-15 {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.blog .container {
-    padding: 40px;
-}
-.blog .blog-item {
-    -ms-flex: 0 0 33.33%;
-    flex: 0 0 33.33%;
-    max-width: 33.33%;
-    margin-bottom: 30px;
-}
-.blog .blog-item-inner {
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid #d4d4e3;
-}
-.blog .blog-item-inner .blog-img {
-    position: relative;
-    overflow: hidden;
-    height: 210px;
-}
-.blog .blog-item-inner .blog-img img {
-    width: 100%;
-    display: block;
-    -webkit-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-    height: 100%;
-    
-    filter: saturate(55%);
-}
-.blog .blog-item-inner:hover .blog-img img {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-  
-  filter: saturate(130%);
-}
-.blog .blog-item-inner .blog-img .blog-date {
-    position: absolute;
-    padding: 4px 10px;
-    border-radius: 5px;
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 14px;
-    left: 15px;
-    bottom: 15px;
-    background-color: #08b8f8;
-}
-.blog .blog-item-inner .blog-info {
-    padding: 30px 15px;
-    background-color: #fdf9ff;
-}
-.blog .blog-item-inner .blog-info .blog-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: #302e4d;
-    text-transform: capitalize;
-    margin-bottom: 10px;
-}
-.blog .blog-item-inner .blog-info .blog-description {
-    font-size: 16px;
-    line-height: 25px;
-    color: #504e70;
-    font-weight: 400;
-    margin-bottom: 15px;
-}
-.blog .blog-item-inner .blog-info .blog-tags {
-    font-size: 14px;
-    line-height: 25px;
-    color: #504e70;
-    font-weight: 400;
-    text-transform: capitalize;
-}
-.blog .blog-item-inner .blog-info .blog-tags a {
-    text-decoration: none;
-    font-weight: 600;
-    color: #08b8f8;
-}
-
-/** Responsive **/
-@media (max-width: 991px) {
-    .blog .blog-item {
-        -ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-}
-
-@media (max-width: 767px) {
-    .blog .blog-item {
-        -ms-flex: 0 0 100%;
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
 }
 
 /*CONTACT */

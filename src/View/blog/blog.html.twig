@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+  <div class="row">
+    <!-- Latest Posts -->
+    <main class="posts-listing col-lg-8">
+      <div class="container">
+        <div class="row">
+          {% for post in allPosts %}
+          {# Calcul date diff for each post #}
+          {% set difference = date("now").diff(date(post.created_at)) %}
+          {% set leftDays = difference.days %}
+          <!-- post -->
+          <div class="post col-xl-6">
+            <div class="post-thumbnail"><a href="post.html"><img src="img/blog-post-1.jpeg" alt="..."
+                  class="img-fluid"></a></div>
+            <div class="post-details">
+              <div class="post-meta d-flex justify-content-between">
+                <div class="date meta-last created-at">{{ post.created_at|date("d/m/Y", "Europe/Paris") }}</div>
+              </div><a href="post.html">
+                <h3 class="h4">{{ post.title }}</h3>
+              </a>
+              <p class="text-muted">{{ post.chapo|slice(0, 100) ~ '...' }}</p>
+              <footer class="post-footer d-flex align-items-center">
+                <div class="avatar"><img src="img/avatar-3.jpg" alt="..." class="img-fluid"></div>
+                <div class="title"><span>{{ post.first_name ~ ' ' ~ post.last_name }}</span></div>
+                <div class="date"><i class="fas fa-clock"></i>Il y a {{ leftDays }} jours</div>
+                <div class="comments meta-last"><i class="fas fa-comments"></i>12</div>
+              </footer>
+            </div>
+          </div>
+          {% endfor %}
+    </main>
+    <aside class="col-lg-4">
+      <!-- Widget [Search Bar Widget]-->
+      <div class="widget search">
+        <header>
+          <h3 class="h6">Search the blog</h3>
+        </header>
+        <form action="#" class="search-form">
+          <div class="form-group">
+            <input type="search" placeholder="What are you looking for?">
+            <button type="submit" class="submit"><i class="icon-search"></i></button>
+          </div>
+        </form>
+      </div>
+      <!-- Widget [Latest Posts Widget]        -->
+      <div class="widget latest-posts">
+        <header>
+          <h3 class="h6">Derniers posts</h3>
+        </header>
+        <div class="blog-posts">
+          {% for lastPost in lastPosts %}
+            <a href="#">
+              <div class="item d-flex align-items-center">
+                <div class="image"><img src="img/small-thumbnail-1.jpg" alt="..." class="img-fluid"></div>
+                <div class="title"><strong>{{ lastPost.title }}</strong>
+                  <div class="d-flex align-items-center">
+                    <div class="comments"><i class="fas fa-comments"></i>12</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+{% endblock %}
