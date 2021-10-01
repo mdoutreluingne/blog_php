@@ -23,7 +23,8 @@ abstract class BaseController
      */
     public function __construct()
     {
-        $this->twig = new Environment(new FilesystemLoader("../src/View"), array("cache" => false));
+        $this->initTwig();
+        $this->addGlobals();
     }
 
     /**
@@ -37,5 +38,29 @@ abstract class BaseController
         header("Location: index.php?" . http_build_query($params));
 
         exit;
+    }
+
+    /**
+     * initializes Twig
+     *
+     * @return void
+     */
+    public function initTwig()
+    {
+        $this->twig = new Environment(new FilesystemLoader('../src/View'), array(
+            'cache' => false,
+            'debug' => true,
+        ));
+        $this->twig->addExtension(new \Twig\Extension\DebugExtension());
+    }
+
+    /**
+     * Add global variables for hte all templates
+     *
+     * @return void
+     */
+    public function addGlobals()
+    {
+        $this->twig->addGlobal('imgPath', "img");
     }
 }

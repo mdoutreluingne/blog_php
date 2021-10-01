@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<!-- Hero Section-->
+<section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <h1>Maxime Doutreluingne - Développeur PHP/Symfony</h1><a href="#" class="hero-link">Découvrir plus</a>
+            </div>
+        </div>
+</section>
+<!-- Intro Section-->
+<section class="intro">
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12">
+                <div class="p-3 py-4">
+                    <div class="row">
+                        <div class="section-title padd-15">
+                            <h2>À propos de moi</h2>
+                        </div>
+                    </div>
+                    <div class="text-center"> <img src="{{ imgPath }}/profile.jpg" width="120"
+                            class="rounded-circle"> </div>
+                    <div class="text-center mt-3"> 
+                        <span class="bg-secondary p-1 px-4 rounded text-white">PHP</span>
+                        <span class="bg-secondary p-1 px-4 rounded text-white">Symfony</span>
+                        <span class="bg-secondary p-1 px-4 rounded text-white">API REST/API Platform</span>
+                        <span class="bg-secondary p-1 px-4 rounded text-white">Javascript</span>
+                        <span class="bg-secondary p-1 px-4 rounded text-white">C#</span>
+                        <div class="px-4 mt-4">
+                            <p>
+                            Diplômé d'un BTS SIO (services informatiques aux organisations) en spécialité SLAM (solutions
+                            logicielles et applications métiers). Je suis spécialisé en développement web depuis 2018 autour des langages PHP/Symfony et
+                                Javascript. Ayant
+                                beaucoup de curiosité j'ai pu progresser rapidement sur plusieurs sujets dans
+                                l'environnement du
+                                développement.
+                            </p>
+                            <p>
+                                Grace à mon expérience, je peux administrer vos bases de données, créer des applications
+                                web,
+                                effectuer des tests, créer des API et bien d'autre choses. Avec des technologies comme
+                                Symfony,
+                                WordPress, Docker, je suis capable de mener un projet à bien. Mon esprit
+                                d'analyse me permet d'avoir un esprit critique sur mes productions ou sur un projet en
+                                général.
+                            </p>
+                        </div>
+                        <ul class="social-list">
+                            <li><a href="https://github.com/mdoutreluingne" target="_blank"><i class="fab fa-github-square"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/maxime-doutreluingne" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                            <li><a href="https://twitter.com/maxdout08304815" target="_blank"><i class="fab fa-twitter-square"></i></a></li>
+                        </ul>
+                        <div class="buttons"> 
+                            <a href="{{ imgPath }}/cv.pdf" target="_blank" class="btn btn-outline-primary px-4">Voir mon CV</a> 
+                            <a href="public/index.php?access=contact" class="btn btn-primary px-4 ms-3">Contact</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Display the 3 last posts #}
+ <section class="blog section" id="blog">
+     <div class="container">
+         <div class="row">
+             <div class="section-title padd-15">
+                 <h2>Les derniers posts</h2>
+             </div>
+         </div>
+         <div class="row">
+            {% for post in allPosts %}
+                <div class="blog-item padd-15">
+                    <div class="blog-item-inner shadow-dark">
+                        <div class="blog-img">
+                            <img src="https://cdn.pixabay.com/photo/2017/01/12/02/34/coffee-1973549_960_720.jpg" alt="Blog">
+                            <div class="blog-date">
+                                {{ post.created_at|date("d/m/Y", "Europe/Paris") }}
+                            </div>
+                        </div>
+                        <div class="blog-info">
+                            <h4 class="blog-title">{{ post.title }}</h4>
+                            <p class="blog-description">{{ post.chapo|slice(0, 100) ~ '...' }}</p>
+                            <a href="" class="btn show-post">Voir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+         </div>
+     </div>
+ </section>
+{% endblock %}

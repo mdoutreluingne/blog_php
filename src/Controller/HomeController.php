@@ -24,8 +24,10 @@ class HomeController extends BaseController
      */
     public function defaultMethod()
     {
-        $allUsers = ModelFactory::getModel("User")->listData();
+        $allPosts = ModelFactory::getModel("Post")->listLastPosts();
 
-        return $this->twig->render("home.html.twig", ["allUsers" => $allUsers]);
+        return $this->twig->render("home/home.html.twig", [
+            "allPosts" => $allPosts
+        ]);
     }
 }
