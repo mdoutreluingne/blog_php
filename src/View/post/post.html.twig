@@ -9,7 +9,7 @@
             <div class="post-single">
               <div class="post-thumbnail"><img src="img/blog-post-3.jpeg" alt="..." class="img-fluid"></div>
               <div class="post-meta d-flex justify-content-between">
-                <div class="date meta-last created-at">{{ "Ajouté le " ~ post.created_at|date("d/m/Y", "Europe/Paris") }}</div>
+                <div class="date meta-last created-at">{{ "Mis à jour le " ~ post[0].updated_at|date("d/m/Y", "Europe/Paris") }}</div>
               </div>
               <div class="post-details">
                 <h1>{{ post[0].title }}</h1>
