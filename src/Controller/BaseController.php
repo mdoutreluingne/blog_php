@@ -62,5 +62,7 @@ abstract class BaseController
     public function addGlobals()
     {
         $this->twig->addGlobal('imgPath', "img");
+        $this->twig->addGlobal('imgUsers', "img/profiles");
+        $this->twig->addGlobal('imgPosts', "img/posts");
     }
 }

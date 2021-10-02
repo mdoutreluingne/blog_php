@@ -2765,3 +2765,8 @@ a.text-dark:focus, a.text-dark:hover {
     line-height: 20px;
     margin-left: 15px;
 }
+
+.pagination {
+  position: absolute;
+  bottom: 0;
+}

@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-7">
-                <h1>Maxime Doutreluingne - Développeur PHP/Symfony</h1><a href="#" class="hero-link">Découvrir plus</a>
+                <h1>Maxime Doutreluingne - Développeur PHP/Symfony</h1><a href="#intro" class="hero-link">Découvrir plus</a>
             </div>
         </div>
 </section>
@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <div class="p-3 py-4">
                     <div class="row">
-                        <div class="section-title padd-15">
+                        <div class="section-title padd-15" id="intro">
                             <h2>À propos de moi</h2>
                         </div>
                     </div>
@@ -80,20 +80,23 @@
         </div>
         <div class="row">
             {% for post in lastPosts %}
-            <div class="post col-xl-4">
-                <div class="post-thumbnail"><a href="post.html"><img src="img/blog-post-1.jpeg" alt="..."
+            {# Calcul date diff for each post #}
+            {% set difference = date("now").diff(date(post.created_at)) %}
+            {% set leftDays = difference.days %}
+            <div class="post col-xl-4 col-lg-4">
+                <div class="post-thumbnail"><a href="index.php?access=post&id={{ post.id }}"><img src="img/blog-post-1.jpeg" alt="..."
                             class="img-fluid"></a></div>
                 <div class="post-details">
                     <div class="post-meta d-flex justify-content-between">
                         <div class="date meta-last created-at">{{ post.created_at|date("d/m/Y", "Europe/Paris") }}</div>
-                    </div><a href="post.html">
+                    </div><a href="index.php?access=post&id={{ post.id }}">
                         <h3 class="h4">{{ post.title }}</h3>
                     </a>
                     <p class="text-muted">{{ post.chapo|slice(0, 100) ~ '...' }}</p>
                     <footer class="post-footer d-flex align-items-center">
                         <div class="avatar"><img src="img/avatar-3.jpg" alt="..." class="img-fluid"></div>
                         <div class="title"><span>{{ post.first_name ~ ' ' ~ post.last_name }}</span></div>
-                        <div class="comments meta-last"><i class="fas fa-comments"></i>12</div>
+                        <div class="date"><i class="fas fa-clock"></i>Il y a {{ leftDays }} jours</div>
                     </footer>
                 </div>
             </div>
