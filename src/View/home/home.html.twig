@@ -95,8 +95,10 @@
                     <p class="text-muted">{{ post.chapo|slice(0, 100) ~ '...' }}</p>
                     <footer class="post-footer d-flex align-items-center">
                         <div class="avatar"><img src="img/avatar-3.jpg" alt="..." class="img-fluid"></div>
-                        <div class="title"><span>{{ post.first_name ~ ' ' ~ post.last_name }}</span></div>
-                        <div class="date"><i class="fas fa-clock"></i>Il y a {{ leftDays }} jours</div>
+                        <div class="title">
+                            <span>{{ post.first_name ~ ' ' ~ post.last_name }}</span>
+                            <div class="date"><i class="fas fa-clock"></i>Il y a {{ leftDays }} jours</div>
+                        </div>
                     </footer>
                 </div>
             </div>

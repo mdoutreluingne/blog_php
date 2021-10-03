@@ -30,7 +30,7 @@
                     <div class="comment">
                       <div class="comment-header d-flex justify-content-between">
                         <div class="user d-flex align-items-center">
-                          <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
+                          <div class="image"><img src="{{ imgUsers }}/user.svg" alt="..." class="img-fluid rounded-circle"></div>
                           <div class="title"><strong>{{ comment.first_name ~ ' ' ~ comment.last_name }}</strong><span class="date">{{ comment.created_at|date("d/m/Y", "Europe/Paris") }}</span></div>
                         </div>
                       </div>
@@ -40,27 +40,32 @@
                     </div>
                   {% endfor %}
                 </div>
-                <div class="add-comment">
-                  <header>
-                    <h3 class="h6">Leave a reply</h3>
-                  </header>
-                  <form action="#" class="commenting-form">
-                    <div class="row">
-                      <div class="form-group col-md-6">
-                        <input type="text" name="username" id="username" placeholder="Name" class="form-control">
+                {# Test if user has a session #}
+                {% if session['user'] is defined %}
+                  <div class="add-comment">
+                    <header>
+                      <h3 class="h6">Laisser un commentaire</h3>
+                    </header>
+                    <form action="#" class="commenting-form">
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                          <input type="text" name="username" id="username" placeholder="Name" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <input type="email" name="username" id="useremail"
+                            placeholder="Email Address (will not be published)" class="form-control">
+                        </div>
+                        <div class="form-group col-md-12">
+                          <textarea name="usercomment" id="usercomment" placeholder="Type your comment"
+                            class="form-control"></textarea>
+                        </div>
+                        <div class="form-group col-md-12">
+                          <button type="submit" class="btn btn-secondary">Submit Comment</button>
+                        </div>
                       </div>
-                      <div class="form-group col-md-6">
-                        <input type="email" name="username" id="useremail" placeholder="Email Address (will not be published)" class="form-control">
-                      </div>
-                      <div class="form-group col-md-12">
-                        <textarea name="usercomment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
-                      </div>
-                      <div class="form-group col-md-12">
-                        <button type="submit" class="btn btn-secondary">Submit Comment</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
+                    </form>
+                  </div>
+                {% endif %}
               </div>
             </div>
           </div>

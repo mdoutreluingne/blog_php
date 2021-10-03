@@ -6,26 +6,26 @@ use Twig\Error\LoaderError;
 use Twig\Error\SyntaxError;
 use Twig\Error\RuntimeError;
 use App\Controller\BaseController;
+use App\Model\Factory\ModelFactory;
 
 /**
- * Class ContactController
- * Manages the ContactPage
+ * Class AdminController
+ * Panel admin
  * @package App\Controller
  */
-class ContactController extends BaseController
+class AdminController extends BaseController
 {
     /**
-     * Renders the View Contact
+     * Renders the View Home
      * @return string
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
     public function defaultMethod()
-    {
-        return $this->twig->render('contact/contact.html.twig', [
-            'success' => $this->isFormSuccess(),
-            'error' => $this->isFormError(),
+    {      
+        
+        return $this->twig->render("admin/home.html.twig", [
         ]);
     }
 }

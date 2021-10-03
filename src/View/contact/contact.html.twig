@@ -14,15 +14,14 @@
                 Démarrons un projet ensemble, n’hésitez pas à me contacter.
             </p>
         </div>
-        {% if successContact %}
-            <div class="alert alert-success text-center" role="alert">
-                Message envoyé
-            </div>
-        {% elseif errorContact %}
-            <div class="alert alert-danger text-center" role="alert">
-                Erreur lors de l'envoi du message, veuillez réessayer en remplissant tous les champs
-            </div>
+        {# Message #}
+        {% import "layout/alert.html.twig" as message %}
+        {% if success %}
+            {{ message.alert("Message envoyé", 'success') }}
+        {% elseif error %}
+            {{ message.alert("Erreur lors de l'envoi du message, veuillez réessayer en remplissant tous les champs", 'danger') }}
         {% endif %}
+
         <div class="main wow fadeInUp">
             <div class="row">
                 <div class="col-lg-8 left">
