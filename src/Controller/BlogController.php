@@ -37,7 +37,7 @@ class BlogController extends BaseController
         $countPosts = ModelFactory::getModel("Post")->countPost();
 
         //Calcul total pages
-        $pages = ceil(intval($countPosts[0]['count_posts']) / $perPage);
+        $pages = ceil((int) $countPosts[0]['count_posts'] / $perPage);
 
         //Calcul first post in the page
         $first = ($currentPage * $perPage) - $perPage;

@@ -37,6 +37,7 @@ class RegistrationController extends BaseController
                 isset($dataPost['password']) && !empty($dataPost['password']) &&
                 isset($dataPost['repeatpassword']) && !empty($dataPost['repeatpassword'])
             ) {
+                //The passwords are the same
                 if ($dataPost['password'] == $dataPost['repeatpassword']) {
                     $user = ModelFactory::getModel('User')->readData($dataPost['email'], "email");
 

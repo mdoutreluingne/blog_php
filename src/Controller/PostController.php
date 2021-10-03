@@ -23,11 +23,15 @@ class PostController extends BaseController
      * @throws SyntaxError
      */
     public function defaultMethod()
-    {      
-        $post = ModelFactory::getModel("Post")->findPostById($_GET['id']);
-        $comments = ModelFactory::getModel("Comment")->findComentByPost($_GET['id']);
-        $countCommentByPost = ModelFactory::getModel("Comment")->countCommentByPost($_GET['id']);
-        $lastPosts = ModelFactory::getModel("Post")->listLastPosts();
+    {
+        $postId = filter_input(INPUT_GET, 'id');
+
+        if (isset($postId) && !empty($postId)) {
+            $post = ModelFactory::getModel("Post")->findPostById($postId);
+            $comments = ModelFactory::getModel("Comment")->findComentByPost($postId);
+            $countCommentByPost = ModelFactory::getModel("Comment")->countCommentByPost($postId);
+            $lastPosts = ModelFactory::getModel("Post")->listLastPosts();
+        }
         
         return $this->twig->render("post/post.html.twig", [
             "post" => $post,
