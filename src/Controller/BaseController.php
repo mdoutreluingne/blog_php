@@ -16,6 +16,7 @@ abstract class BaseController
      * @var Environment|null
      */
     protected $twig = null;
+    protected $session = null;
 
     /**
      * BaseController constructor
@@ -23,6 +24,9 @@ abstract class BaseController
      */
     public function __construct()
     {
+        session_start();
+        $this->session = filter_var_array($_SESSION);
+
         $this->initTwig();
         $this->addGlobals();
     }
@@ -62,5 +66,38 @@ abstract class BaseController
     public function addGlobals()
     {
         $this->twig->addGlobal('imgPath', "img");
+        $this->twig->addGlobal('imgUsers', "img/profiles");
+        $this->twig->addGlobal('imgPosts', "img/posts");
+        $this->twig->addGlobal('session', $this->session);
+    }
+
+    /**
+     * isFormSuccess
+     *
+     * @return void
+     */
+    public function isFormSuccess()
+    {
+        $success = filter_input(INPUT_GET, 'success');
+        if (isset($success)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * isFormError
+     *
+     * @return void
+     */
+    public function isFormError()
+    {
+        $error = filter_input(INPUT_GET, 'error');
+        if (isset($error)) {
+            return $error;
+        }
+
+        return false;
     }
 }

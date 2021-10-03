@@ -9,11 +9,11 @@ use App\Controller\BaseController;
 use App\Model\Factory\ModelFactory;
 
 /**
- * Class HomeController
- * Manages the Homepage
+ * Class AdminController
+ * Panel admin
  * @package App\Controller
  */
-class HomeController extends BaseController
+class AdminController extends BaseController
 {
     /**
      * Renders the View Home
@@ -23,11 +23,9 @@ class HomeController extends BaseController
      * @throws SyntaxError
      */
     public function defaultMethod()
-    {
-        $lastPosts = ModelFactory::getModel("Post")->listLastPosts();
-
-        return $this->twig->render("home/home.html.twig", [
-            "lastPosts" => $lastPosts
+    {      
+        
+        return $this->twig->render("admin/home.html.twig", [
         ]);
     }
 }

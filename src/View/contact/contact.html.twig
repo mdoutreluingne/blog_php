@@ -14,11 +14,14 @@
                 Démarrons un projet ensemble, n’hésitez pas à me contacter.
             </p>
         </div>
-        {% if successContact %}
-            <div class="alert alert-success text-center" role="alert">
-                Message envoyé
-            </div>
+        {# Message #}
+        {% import "layout/alert.html.twig" as message %}
+        {% if success %}
+            {{ message.alert("Message envoyé", 'success') }}
+        {% elseif error %}
+            {{ message.alert("Erreur lors de l'envoi du message, veuillez réessayer en remplissant tous les champs", 'danger') }}
         {% endif %}
+
         <div class="main wow fadeInUp">
             <div class="row">
                 <div class="col-lg-8 left">
@@ -27,19 +30,19 @@
                     <form action="index.php?access=mail" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="firstname" placeholder="Prénom">
+                                <input type="text" class="form-control" name="firstname" placeholder="Prénom*">
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="lastname" placeholder="Nom">
+                                <input type="text" class="form-control" name="lastname" placeholder="Nom*">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <input type="email" class="form-control" name="email" placeholder="Email">
+                                <input type="email" class="form-control" name="email" placeholder="Email*">
                             </div>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" rows="5" name="message" id="comment" placeholder="Message"></textarea>
+                            <textarea class="form-control" rows="5" name="message" id="comment" placeholder="Message*"></textarea>
                         </div>
                         <button class="btn btn-block" type="submit">Envoyer</button>
                     </form>

@@ -33,52 +33,62 @@ class MailController extends BaseController
         //Get config server SMTP
         require_once "../config/mailer.php";
 
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
-        $email = $_POST['email'];
-        $message = $_POST['message'];
+        $dataPost = filter_input_array(INPUT_POST);
 
-        //Create an instance; passing `true` enables exceptions
-        $mail = new PHPMailer();
+        $firstname = $dataPost['firstname'];
+        $lastname = $dataPost['lastname'];
+        $email = $dataPost['email'];
+        $message = $dataPost['message'];
 
-        try {
-            //Enable verbose debug output
-            $mail->SMTPDebug = 3;
+        if (isset($firstname) && !empty($firstname) &&
+            isset($lastname) && !empty($lastname) &&
+            isset($email) && !empty($email) &&
+            isset($message) && !empty($message)
+        ) {
+            //Create an instance; passing `true` enables exceptions
+            $mail = new PHPMailer();
 
-            //Encoding utf-8
-            $mail->CharSet = 'UTF-8';
+            try {
+                //Enable verbose debug output
+                $mail->SMTPDebug = 3;
 
-            //Send using SMTP
-            $mail->isSMTP();
+                //Encoding utf-8
+                $mail->CharSet = 'UTF-8';
 
-            //Server SMTP settings
-            $mail->Host = HOST;
-            $mail->Port = PORT;
-            $mail->SMTPAuth = false;
+                //Send using SMTP
+                $mail->isSMTP();
 
-            // From
-            $mail->setFrom($email, $firstname . ' ' . $lastname);
+                //Server SMTP settings
+                $mail->Host = HOST;
+                $mail->Port = PORT;
+                $mail->SMTPAuth = false;
 
-            // To
-            $mail->addAddress('admin@gmail.com', 'Contact Blog - Maxime Doutreluingne');
+                // From
+                $mail->setFrom($email, $firstname . ' ' . $lastname);
 
-            //Content
-            $mail->isHTML(true);                                  
-            $mail->Subject = 'Contact Blog';
-            $mail->Body = 'Nom : ' . $lastname . '<br>Prénom : ' . $firstname . '<br>Message : ' . $message;
-            $mail->AltBody = $message;
+                // To
+                $mail->addAddress('admin@gmail.com', 'Contact Blog - Maxime Doutreluingne');
 
-            //Send the message
-            ob_start();
-            $mail->send();
-            ob_end_clean();
+                //Content
+                $mail->isHTML(true);
+                $mail->Subject = 'Contact Blog';
+                $mail->Body = 'Nom : ' . $lastname . '<br>Prénom : ' . $firstname . '<br>Message : ' . $message;
+                $mail->AltBody = $message;
 
-            //Redirect to contact page
-            $this->redirect('contact', ['success' => true]);
-        } catch (Exception $e) {
+                //Send the message
+                ob_start();
+                $mail->send();
+                ob_end_clean();
+
+                //Redirect to contact page
+                $this->redirect('contact', ['success' => true]);
+            } catch (Exception $e) {
+                //Redirect to contact page && error
+                $this->redirect('contact', ['error' => true]);
+            }
+        } else {
             //Redirect to contact page && error
             $this->redirect('contact', ['error' => true]);
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
         
     }

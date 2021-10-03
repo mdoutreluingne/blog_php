@@ -24,38 +24,8 @@ class ContactController extends BaseController
     public function defaultMethod()
     {
         return $this->twig->render('contact/contact.html.twig', [
-            'successContact' => $this->isFormSuccess(),
-            'errorContact' => $this->isFormError(),
+            'success' => $this->isFormSuccess(),
+            'error' => $this->isFormError(),
         ]);
-    }
-
-    /**
-     * isFormSuccess
-     *
-     * @return void
-     */
-    public function isFormSuccess()
-    {
-        $success = filter_input(INPUT_GET, 'success');
-        if (isset($success)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * isFormError
-     *
-     * @return void
-     */
-    public function isFormError()
-    {
-        $error = filter_input(INPUT_GET, 'error');
-        if (isset($error)) {
-            return $error;
-        }
-
-        return false;
     }
 }

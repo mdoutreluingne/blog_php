@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Panel administrateur
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h5>Administrez le blog !</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p>Bienvenue dans votre espace dédié à l'administration du blog. Ici vous pouvez accéder à la :</p>
+            <ul>
+                <li><a href="index.php?action=addPost" title="Ajoutez un article au blog">Création d'un nouvel
+                        article</a>
+                </li>
+                <li><a href="index.php?action=userManagement" title="Gérez les utilisateurs">Gestion des
+                        utilisateurs</a>
+                </li>
+                <li><a href="index.php?action=commentManagement" title="Modérez les commentaires">Modération des
+                        commentaires</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
