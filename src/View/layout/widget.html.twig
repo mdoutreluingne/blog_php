@@ -4,9 +4,9 @@
         <header>
             <h3 class="h6">Recherche</h3>
         </header>
-        <form action="#" class="search-form">
+        <form action="index.php?access=blog" method="post" enctype="multipart/form-data" class="search-form">
             <div class="form-group">
-                <input type="search" placeholder="Que cherchez-vous ?">
+                <input type="text" name="search" placeholder="Que cherchez-vous ?" value="{{ search }}">
                 <button type="submit" class="submit"><i class="fas fa-search"></i></button>
             </div>
         </form>

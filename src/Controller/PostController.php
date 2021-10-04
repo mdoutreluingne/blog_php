@@ -34,6 +34,7 @@ class PostController extends BaseController
         }
         
         return $this->twig->render("post/post.html.twig", [
+            'success' => $this->isFormSuccess(),
             "post" => $post,
             "comments" => $comments,
             "countComment" => $countCommentByPost,

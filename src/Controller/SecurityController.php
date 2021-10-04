@@ -62,8 +62,10 @@ class SecurityController extends BaseController
                 $passwordHash = $user['password'];
 
                 if ($this->checkPassword($passwordForm, $passwordHash)) {
+                    //Initialize user session
                     $this->createSession($user);
-                    $this->redirect('admin', ['success' => true]);
+                    //Redirect user in function of his role
+                    $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin', ['success' => true]) : $this->redirect('blog');
                 } else {
                     $this->redirect('security', ['error' => true]);
                 }
