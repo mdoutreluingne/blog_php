@@ -24,10 +24,14 @@ class PostModel extends MainModel
      * Display all the posts
      * @return array|mixed
      */
-    public function listPosts(int $firstPage, int $perPage)
+    public function listPosts(int $firstPage, int $perPage, ?string $search)
     {
-        $query = "SELECT post.*, user.last_name, user.first_name, (SELECT COUNT(c.post_id) FROM comment c WHERE c.post_id = post.id AND c.validated = 1) as countComment FROM " . $this->table . " JOIN user ON user.id = post.user_id ORDER BY post.updated_at DESC LIMIT " . $firstPage . ", " . $perPage;
-
+        if ($search != null) {
+            $query = "SELECT post.*, user.last_name, user.first_name, (SELECT COUNT(c.post_id) FROM comment c WHERE c.post_id = post.id AND c.validated = 1) as countComment FROM " . $this->table . " JOIN user ON user.id = post.user_id WHERE post.title LIKE '%" . $search . "%'" . "ORDER BY post.updated_at DESC LIMIT " . $firstPage . ", " . $perPage;
+        } else {
+            $query = "SELECT post.*, user.last_name, user.first_name, (SELECT COUNT(c.post_id) FROM comment c WHERE c.post_id = post.id AND c.validated = 1) as countComment FROM " . $this->table . " JOIN user ON user.id = post.user_id ORDER BY post.updated_at DESC LIMIT " . $firstPage . ", " . $perPage;
+        }
+        
         return $this->database->getAllData($query);
     }
 
@@ -47,9 +51,14 @@ class PostModel extends MainModel
      * Count all the posts
      * @return array|mixed
      */
-    public function countPost()
+    public function countPost(?string $search)
     {
-        $query = "SELECT COUNT(*) AS count_posts FROM " . $this->table;
+        if ($search != null) {
+            $query = "SELECT COUNT(*) AS count_posts FROM " . $this->table . " WHERE post.title LIKE '%" . $search . "%'"; 
+        } else {
+            $query = "SELECT COUNT(*) AS count_posts FROM " . $this->table;
+        }
+        
 
         return $this->database->getAllData($query);
     }
