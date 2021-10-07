@@ -23,9 +23,15 @@ class AdminController extends BaseController
      * @throws SyntaxError
      */
     public function defaultMethod()
-    {      
-        
+    {
+        $pagination = $this->paginate(null);
+
+        $allPosts = ModelFactory::getModel("Post")->listPosts($pagination['first'], $pagination['perPage'], null);
+        $allComments = ModelFactory::getModel("Comment")->listComments();
+
         return $this->twig->render("admin/home.html.twig", [
+            "allPosts" => $allPosts,
+            "allComments" => $allComments,
         ]);
     }
 }

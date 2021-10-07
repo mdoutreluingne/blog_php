@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use App\Model\Factory\ModelFactory;
 
 /**
  * Class BaseController
@@ -100,4 +101,57 @@ abstract class BaseController
 
         return false;
     }
+
+    /**
+     * Create session
+     *
+     * @param  mixed $user
+     *
+     * @return void
+     */
+    protected function createSession($user)
+    {
+        $this->session['user'] = [
+            'id' => $user['id'],
+            'first_name' => $user['first_name'],
+            'last_name' => $user['last_name'],
+            'email' => $user['email'],
+            'role' => $user['role'],
+            'avatar' => $user['avatar'],
+        ];
+
+        $_SESSION['user'] = $this->session['user'];
+    }
+
+    /**
+     * isFormError
+     *
+     * @return array
+     */
+    protected function paginate(?string $search): array
+    {
+        $data = [];
+        
+        //Get current page url
+        $page = filter_input(INPUT_GET, 'page');
+        //Number of post each page
+        $data['perPage'] = 4;
+
+        //We determine on which page
+        if (isset($page) == true) {
+            $data['currentPage'] = (int) strip_tags($page);
+        } else {
+            $data['currentPage'] = 1;
+        }
+
+        $countPosts = ModelFactory::getModel("Post")->countPost($search);
+
+        //Calcul total pages
+        $data['pages'] = ceil((int) $countPosts[0]['count_posts'] / $data['perPage']);
+
+        //Calcul first post in the page
+        $data['first'] = ($data['currentPage'] * $data['perPage']) - $data['perPage'];
+
+        return $data;
+    }    
 }

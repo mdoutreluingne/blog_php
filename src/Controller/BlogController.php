@@ -27,35 +27,17 @@ class BlogController extends BaseController
         //Get data search form
         $search = filter_input(INPUT_POST, 'search');
         $search = htmlspecialchars($search);
-        
-        //Get current page url
-        $page = filter_input(INPUT_GET, 'page');
-        //Number of post each page
-        $perPage = 4;
-        
-        //We determine on which page
-        if (isset($page) == true) {
-            $currentPage = (int) strip_tags($page);
-        } else {
-            $currentPage = 1;
-        }
 
-        $countPosts = ModelFactory::getModel("Post")->countPost($search);
+        $pagination = $this->paginate($search);
 
-        //Calcul total pages
-        $pages = ceil((int) $countPosts[0]['count_posts'] / $perPage);
-
-        //Calcul first post in the page
-        $first = ($currentPage * $perPage) - $perPage;
-
-        $allPosts = ModelFactory::getModel("Post")->listPosts($first, $perPage, $search);
+        $allPosts = ModelFactory::getModel("Post")->listPosts($pagination['first'], $pagination['perPage'], $search);
         $lastPosts = ModelFactory::getModel("Post")->listLastPosts();
 
         return $this->twig->render("blog/blog.html.twig", [
             "allPosts" => $allPosts,
             "lastPosts" => $lastPosts,
-            "currentPage" => $currentPage,
-            "pages" => $pages,
+            "currentPage" => $pagination['currentPage'],
+            "pages" => $pagination['pages'],
             'search' => $search
         ]);
     }

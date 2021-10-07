@@ -27,10 +27,18 @@ class CommentController extends BaseController
     {
         $action = filter_input(INPUT_GET, 'action');
 
-        if (isset($action) && !empty($action)) {
-            if ($action == "create") {
-                $this->create();
-            }
+        switch (isset($action)) {
+            case $action == 'create':
+                return $this->create();
+                break;
+            case $action == 'update':
+                return $this->update();
+                break;
+            case $action == 'delete':
+                $this->delete();
+                break;
+            default:
+                break;
         }
     }
 
@@ -67,5 +75,43 @@ class CommentController extends BaseController
         ModelFactory::getModel('Comment')->createData($data);
 
         $this->redirect('post', ['success' => true, 'id' => $this->getIdPost()]);
+    }
+
+    /**
+     * update
+     *
+     * @return void
+     */
+    private function update()
+    {
+        $comment = filter_input_array(INPUT_POST);
+        $idComment = filter_input(INPUT_GET, 'id');
+        $commentById = ModelFactory::getModel("Comment")->findCommentById($idComment);
+
+        if (isset($comment['submit'])) {
+            $content = htmlspecialchars($comment['content']);
+            $validated = $comment['validated'];
+            
+            ModelFactory::getModel('Comment')->updateData($idComment, ['content' => $content, 'validated' => $validated], ['id' => $idComment]);
+
+            $this->redirect('admin', ['success' => true]);
+        }
+
+        return $this->twig->render("comment/update.html.twig", [
+            'comment' => $commentById
+        ]);
+    }
+
+    /**
+     * delete
+     *
+     * @return void
+     */
+    private function delete()
+    {
+        $idComment = filter_input(INPUT_GET, 'id');
+        ModelFactory::getModel('Comment')->deleteData('id', ['id' => $idComment]);
+
+        $this->redirect('admin', ['success' => true]);
     }
 }
