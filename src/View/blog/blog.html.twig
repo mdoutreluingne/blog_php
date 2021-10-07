@@ -13,12 +13,12 @@
           {% set leftDays = difference.days %}
           {# Post #}
           <div class="post col-xl-6">
-            <div class="post-thumbnail"><a href="index.php?access=post&id={{ post.id }}"><img src="img/blog-post-1.jpeg" alt="..."
+            <div class="post-thumbnail"><a href="index.php?access=post&id={{ post.id }}&action=read"><img src="img/blog-post-1.jpeg" alt="..."
                   class="img-fluid"></a></div>
             <div class="post-details">
               <div class="post-meta d-flex justify-content-between">
                 <div class="date meta-last created-at">{{ "Mis à jour le " ~ post.updated_at|date("d/m/Y", "Europe/Paris") }}</div>
-              </div><a href="index.php?access=post&id={{ post.id }}">
+              </div><a href="index.php?access=post&id={{ post.id }}&action=read">
                 <h3 class="h4">{{ post.title }}</h3>
               </a>
               <p class="text-muted">{{ post.chapo|slice(0, 100) ~ '...' }}</p>

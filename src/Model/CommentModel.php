@@ -32,4 +32,27 @@ class CommentModel extends MainModel
 
         return $this->database->getAllData($query);
     }
+
+    /**
+     * Display all the posts
+     * @return array|mixed
+     */
+    public function listComments()
+    {
+        $query = "SELECT comment.*, user.last_name, user.first_name, post.title FROM " . $this->table . " JOIN user ON user.id = comment.user_id JOIN post ON post.id = comment.post_id ORDER BY comment.created_at DESC";
+
+        return $this->database->getAllData($query);
+    }
+
+    /**
+     * Display a comment
+     * @param int $int
+     * @return array|mixed
+     */
+    public function findCommentById(int $id)
+    {
+        $query = "SELECT comment.*, user.last_name, user.first_name, post.title FROM " . $this->table . " JOIN user ON user.id = comment.user_id JOIN post ON post.id = comment.post_id WHERE comment.id = " . $id;
+
+        return $this->database->getAllData($query);
+    }
 }

@@ -85,9 +85,9 @@ abstract class MainModel
      * Updates Data from its id or another key
      * @param string $value
      * @param array $data
-     * @param string|null $key
+     * @param array|null $key
      */
-    public function updateData(string $value, array $data, string $key = null)
+    public function updateData(string $value, array $data, array $key)
     {
         $set = null;
 
@@ -97,8 +97,8 @@ abstract class MainModel
 
         $set = substr_replace($set, "", -2);
 
-        if (isset($key)) {
-            $query = "UPDATE " . $this->table . " SET " . $set . " WHERE " . $key . " = ?";
+        if (isset($key) && !empty($key)) {
+            $query = "UPDATE " . $this->table . " SET " . $set . " WHERE " . key($key) . " = " . $key[key($key)];
         } else {
             $query = "UPDATE " . $this->table . " SET " . $set . " WHERE id = ?";
         }
@@ -109,12 +109,12 @@ abstract class MainModel
     /**
      * Deletes Data from its id or another key
      * @param string $value
-     * @param string|null $key
+     * @param array|null $key
      */
-    public function deleteData(string $value, string $key = null)
+    public function deleteData(string $value, array $key)
     {
         if (isset($key)) {
-            $query = "DELETE FROM " . $this->table . " WHERE " . $key . " = ?";
+            $query = "DELETE FROM " . $this->table . " WHERE " . key($key) . " = " . $key[key($key)];
         } else {
             $query = "DELETE FROM " . $this->table . " WHERE id = ?";
         }

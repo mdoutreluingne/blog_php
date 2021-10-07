@@ -1,29 +1,94 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-Panel administrateur
+Administration
 {% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <h5>Administrez le blog !</h5>
+            <h3 class="text-center">Administration</h3>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <p>Bienvenue dans votre espace dédié à l'administration du blog. Ici vous pouvez accéder à la :</p>
-            <ul>
-                <li><a href="index.php?action=addPost" title="Ajoutez un article au blog">Création d'un nouvel
-                        article</a>
-                </li>
-                <li><a href="index.php?action=userManagement" title="Gérez les utilisateurs">Gestion des
-                        utilisateurs</a>
-                </li>
-                <li><a href="index.php?action=commentManagement" title="Modérez les commentaires">Modération des
-                        commentaires</a></li>
-            </ul>
+            <p class="text-center">Bienvenue dans votre espace dédié à l'administration du blog. Ici vous pouvez accéder aux :</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h5 class="text-center">Posts</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Titre</th>
+                        <th>Chapo</th>
+                        <th>Contenu</th>
+                        <th>Créé à</th>
+                        <th>Mis à jour à</th>
+                        <th>actions </th>
+                        <a href="index.php?access=post&action=create">Ajouter un post</a>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in allPosts %}
+                    <tr>
+                        <td>{{ post.first_name ~ ' ' ~ post.last_name }}</td>
+                        <td>{{ post.title }}</td>
+                        <td>{{ post.chapo|slice(0, 20) ~ '...' }}</td>
+                        <td>{{ post.content|slice(0, 20) ~ '...' }}</td>
+                        <td>{{ post.created_at|date("d/m/Y H:i:s", "Europe/Paris") }}</td>
+                        <td>{{ post.updated_at|date("d/m/Y H:i:s", "Europe/Paris") }}</td>
+                        <td>
+                            <a href="index.php?access=post&id={{ post.id }}&action=update">Modifier</a>
+                            <a href="index.php?access=post&id={{ post.id }}&action=delete" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément ?');">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="2">Aucun post</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>    
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h5 class="text-center">Commentaires</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Post</th>
+                        <th>Contenu</th>
+                        <th>Créé à</th>
+                        <th>Validé</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comment in allComments %}
+                    <tr>
+                        <td>{{ comment.first_name ~ ' ' ~ comment.last_name }}</td>
+                        <td>{{ comment.title }}</td>
+                        <td>{{ comment.content|slice(0, 20) ~ '...' }}</td>
+                        <td>{{ comment.created_at|date("d/m/Y H:i:s", "Europe/Paris") }}</td>
+                        <td>{{ comment.validated == 1 ? '<i class="fas fa-check"></i>' : '' }}</td>
+                        <td>
+                            <a href="index.php?access=comment&id={{ comment.id }}&action=update">Modifier</a>
+                            <a href="index.php?access=comment&id={{ comment.id }}&action=delete" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément ?');">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="2">Aucun commentaire</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

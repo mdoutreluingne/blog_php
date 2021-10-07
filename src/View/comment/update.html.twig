@@ -1,0 +1,13 @@
+<div class="titre-avatar">
+	<h2>Mettre à jour un article un commentaire</h2>
+</div>
+
+<form method="post" action="index.php?access=comment&id={{ comment[0].id }}&action=update" enctype="multipart/form-data">
+	<h3>Rentrez le contenu du commentaire</h3>
+	<textarea name="content" id="content" required>{{ comment[0].content }}</textarea>
+	<h3>Validé</h3>
+	<input type="checkbox" id="validated" name="validated" {{ comment[0].validated == true ? "checked" : "" }}>
+	<div class="actions">
+		<button class="btn btn-primary" name="submit" type="submit">Modifier</button>
+	</div>
+</form>
