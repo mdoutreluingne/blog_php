@@ -39,8 +39,8 @@ Administration
                         <td>{{ post.title }}</td>
                         <td>{{ post.chapo|slice(0, 20) ~ '...' }}</td>
                         <td>{{ post.content|slice(0, 20) ~ '...' }}</td>
-                        <td>{{ post.created_at|date("d/m/Y H:i:s", "Europe/Paris") }}</td>
-                        <td>{{ post.updated_at|date("d/m/Y H:i:s", "Europe/Paris") }}</td>
+                        <td>{{ post.created_at|date("H:i:s d/m/Y", "Europe/Paris") }}</td>
+                        <td>{{ post.updated_at|date("H:i:s d/m/Y", "Europe/Paris") }}</td>
                         <td>
                             <a href="index.php?access=post&id={{ post.id }}&action=update">Modifier</a>
                             <a href="index.php?access=post&id={{ post.id }}&action=delete" onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément ?');">Supprimer</a>
@@ -75,7 +75,7 @@ Administration
                         <td>{{ comment.first_name ~ ' ' ~ comment.last_name }}</td>
                         <td>{{ comment.title }}</td>
                         <td>{{ comment.content|slice(0, 20) ~ '...' }}</td>
-                        <td>{{ comment.created_at|date("d/m/Y H:i:s", "Europe/Paris") }}</td>
+                        <td>{{ comment.created_at|date("H:i:s d/m/Y", "Europe/Paris") }}</td>
                         <td>{{ comment.validated == 1 ? '<i class="fas fa-check"></i>' : '' }}</td>
                         <td>
                             <a href="index.php?access=comment&id={{ comment.id }}&action=update">Modifier</a>

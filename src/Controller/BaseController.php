@@ -103,6 +103,27 @@ abstract class BaseController
     }
 
     /**
+     * Create session
+     *
+     * @param  mixed $user
+     *
+     * @return void
+     */
+    protected function createSession($user)
+    {
+        $this->session['user'] = [
+            'id' => $user['id'],
+            'first_name' => $user['first_name'],
+            'last_name' => $user['last_name'],
+            'email' => $user['email'],
+            'role' => $user['role'],
+            'avatar' => $user['avatar'],
+        ];
+
+        $_SESSION['user'] = $this->session['user'];
+    }
+
+    /**
      * isFormError
      *
      * @return array

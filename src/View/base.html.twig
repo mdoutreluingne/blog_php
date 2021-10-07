@@ -66,7 +66,7 @@
                                    <span><img src="{{ imgUsers }}/user.svg" class="img-fluid rounded-circle avatar mr-2">{{ session['user']['first_name'] ~ ' ' ~ session['user']['last_name'] }}</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="navbarDropdown">
-                                    <a href="" class="nav-link">Modifier votre profile</a>
+                                    <a href="index.php?access=account&id={{ session['user']['id'] }}&action=update" class="nav-link">Modifier votre compte</a>
                                     <a href="index.php?access=security&type=logout" class="nav-link">Se déconnecter</a>
                                 </div>
                             </li>
