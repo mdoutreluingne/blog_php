@@ -91,8 +91,10 @@ class CommentController extends BaseController
         $commentById = ModelFactory::getModel("Comment")->findCommentById($idComment);
 
         if (isset($comment['submit'])) {
+            
             $content = htmlspecialchars($comment['content']);
-            $validated = $comment['validated'];
+            $validated = filter_has_var(INPUT_POST, 'validated') == true ? 1 : 0;
+
             
             ModelFactory::getModel('Comment')->updateData($idComment, ['content' => $content, 'validated' => $validated], ['id' => $idComment]);
 

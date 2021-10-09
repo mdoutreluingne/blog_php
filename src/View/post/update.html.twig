@@ -1,26 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="titre-avatar">
-	<h2>Mettre à jour un article un article</h2>
+<div class="container-form col-12">
+	<h2 class="h2 text-center">Mettre à jour un article un article</h2>
+	<form method="post" action="index.php?access=post&id={{ post[0].id }}&action=update" enctype="multipart/form-data">
+		<div class="form-group">
+			<label>Titre</label>
+			<input type="text" name="title" id="title" class="form-control" required value="{{ post[0].title }}">
+		</div>
+		<div class="form-group">
+			<label>Choisissez l'image principale de l'article</label>
+			<input type="file" name="picture" id="picture" accept="image/x-png,image/jpeg">
+		</div>
+		<div class="form-group">
+			<label>Rentrez une courte description de l'article</label>
+			<textarea name="chapo" id="chapo" class="form-control" rows="5" required>{{ post[0].chapo }}</textarea>
+		</div>
+		<div class="form-group">
+			<label>Rentrez le contenu de l'article</label>
+			<textarea name="content" id="content" class="form-control" rows="5" required>{{ post[0].content }}</textarea>
+		</div>
+		<button class="btn btn-secondary" name="submit" type="submit">Modifier</button>
+	</form>
 </div>
-
-<form method="post" action="index.php?access=post&id={{ post[0].id }}&action=update" enctype="multipart/form-data">
-	<label for="title">
-		<input type="text" name="title" id="title" placeholder="Rentrez ici le titre de votre article" required value="{{ post[0].title }}">
-	</label>
-	<label for="picture">
-		Choisissez l'image principale de l'article
-		<input type="file" name="picture" id="picture" accept="image/x-png,image/gif,image/jpeg">
-	</label>
-	<h3>Rentrez une courte description de l'article</h3>
-	<textarea name="chapo" id="chapo" required>{{ post[0].chapo }}</textarea>
-	<h3>Rentrez le contenu de l'article</h3>
-	<textarea name="content" id="content" required>{{ post[0].content }}</textarea>
-	<div class="actions">
-		<button class="btn btn-primary" name="submit" type="submit">Modifier</button>
-	</div>
-</form>
 {% endblock %}
 
 {% block footer %}

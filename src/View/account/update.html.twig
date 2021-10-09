@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="account">
-	<h2 class="h2 text-center">Mettre à jour votre compte</h2>
+<div class="account col-12">
+	<h2 class="h2 text-center">Modifier votre compte</h2>
 	<form method="post" action="index.php?access=account&id={{ user['id'] }}&action=update" enctype="multipart/form-data">
 		<div class="preview text-center">
 			{% if user['avatar'] != null %}
@@ -27,13 +27,13 @@
 			<label>Email:</label>
 			<input class="form-control" type="text" name="email" id="email" required value="{{ user['email'] }}">
 		</div>
-		<div class="form-group">
-			<button class="btn btn-primary" name="submit" type="submit">Modifier</button>
+		<div class="form-group text-center">
+			<button class="btn btn-secondary" name="submit" type="submit">Modifier</button>
+			<a href="index.php?access=account&id={{ user['id'] }}&action=password" class="btn btn-secondary">Changer votre mot de passe</a>
 		</div>
 	</form>
 </div>
 
-<a href="index.php?access=account&id={{ user['id'] }}&action=password">Changer votre mot de passe</a>
 {% endblock %}
 
 {% block footer %}

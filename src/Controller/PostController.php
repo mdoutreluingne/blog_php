@@ -146,7 +146,7 @@ class PostController extends BaseController
             $date = $date->format('Y-m-d H:i:s');
             $picture = $_FILES['picture']['name'] !== "" ? $this->uploadImg("post", $_FILES['picture']) : $postById[0]['picture'];
 
-            ModelFactory::getModel('Post')->updateData($idPost, ['title' => $title, 'updated_at' => $date, 'chapo' => $chapo, 'content' => $content, 'picture' => $picture], ['id' => $idPost]);
+            ModelFactory::getModel('Post')->updateData($idPost, ["title" => $title, "updated_at" => $date, "chapo" => $chapo, "content" => $content, "picture" => $picture], ["id" => $idPost]);
 
             $this->redirect('admin', ['success' => true]);
         }

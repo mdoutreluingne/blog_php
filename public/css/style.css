@@ -2827,11 +2827,6 @@ input[type=password] {
     margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 40px;
-    outline: 0px;
-}
-
 .form-control:focus {
     border-color: inherit;
     -webkit-box-shadow: none;
@@ -2937,12 +2932,6 @@ label {
     opacity: 0;
 }
 
-.form-group
-{
-    width:  250px;
-    margin: 10px auto;
-}
-
 .form-group input
 {
     transition: 0.3s linear;
@@ -2956,5 +2945,11 @@ label {
 .account
 {
     width: 500px;
+    margin: 20px auto;
+}
+
+.container-form
+{
+    width: 700px;
     margin: 20px auto;
 }
