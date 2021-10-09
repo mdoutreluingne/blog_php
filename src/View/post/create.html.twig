@@ -1,3 +1,6 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
 <div class="titre-avatar">
 	<h2>Créer un article</h2>
 </div>
@@ -6,15 +9,19 @@
 	<label for="title">
 		<input type="text" name="title" id="title" placeholder="Rentrez ici le titre de votre article" required>
 	</label>
-	{# <label for="picture">
-		Choisissez l'image principale de l'article
-		<input type="file" name="picture" id="picture" accept="image/x-png,image/gif,image/jpeg" required>
-	</label> #}
+	<h3>Choisissez l'image principale de l'article</h3>
+	<label for="picture">
+		<input type="file" name="picture" id="picture" accept="image/x-png,image/jpeg">
+	</label>
 	<h3>Rentrez une courte description de l'article</h3>
-	<textarea name="chapo" id="chapo"></textarea>
+	<textarea name="chapo" id="chapo" required></textarea>
 	<h3>Rentrez le contenu de l'article</h3>
-	<textarea name="content" id="content"></textarea>
+	<textarea name="content" id="content" required></textarea>
 	<div class="actions">
 		<button class="btn btn-primary" name="submit" type="submit">Créer</button>
 	</div>
 </form>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

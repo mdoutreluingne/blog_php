@@ -24,14 +24,17 @@ class AdminController extends BaseController
      */
     public function defaultMethod()
     {
-        $pagination = $this->paginate(null);
-
-        $allPosts = ModelFactory::getModel("Post")->listPosts($pagination['first'], $pagination['perPage'], null);
+        //Check permission
+        $this->isAdmin();
+        
+        $allPosts = ModelFactory::getModel("Post")->listPostsAdmin();
         $allComments = ModelFactory::getModel("Comment")->listComments();
 
         return $this->twig->render("admin/home.html.twig", [
             "allPosts" => $allPosts,
             "allComments" => $allComments,
+            "success" => $this->isFormSuccess(),
+            "error" => $this->isFormError(),
         ]);
     }
 }

@@ -58,12 +58,18 @@
                             </li>
                         {% else %}
                             {% if session['user']['role'] == "ADMIN" %}
-                                <li class="nav-item"><a href="index.php?access=admin" class=" nav-link">Administrer</a>
+                                <li class="nav-item"><a href="index.php?access=admin" class=" nav-link">Administration</a>
                                 </li>
                             {% endif %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   <span><img src="{{ imgUsers }}/user.svg" class="img-fluid rounded-circle avatar mr-2">{{ session['user']['first_name'] ~ ' ' ~ session['user']['last_name'] }}</span>
+                                   <span>
+                                   {% if session['user']['avatar'] != null %}
+                                   <img src="{{ imgUsers }}/{{ session['user']['avatar'] }}" class="img-fluid rounded-circle avatar mr-2">{{ session['user']['first_name'] ~ ' ' ~ session['user']['last_name'] }}
+                                   {% else %}
+                                    <img src="{{ imgUsers }}/user.svg" class="img-fluid rounded-circle avatar mr-2">{{ session['user']['first_name'] ~ ' ' ~ session['user']['last_name'] }}
+                                   {% endif %}
+                                   </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="navbarDropdown">
                                     <a href="index.php?access=account&id={{ session['user']['id'] }}&action=update" class="nav-link">Modifier votre compte</a>

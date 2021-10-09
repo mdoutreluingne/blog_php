@@ -20,7 +20,11 @@
             {% for lastPost in lastPosts %}
             <a href="index.php?access=post&id={{ lastPost.id }}">
                 <div class="item d-flex align-items-center">
-                    <div class="image"><img src="img/small-thumbnail-1.jpg" alt="..." class="img-fluid"></div>
+                    <div class="image">
+                        {% if lastPost.picture != null %}
+                        <img src="{{ imgPosts }}/{{ lastPost.picture }}" alt="{{ lastPost.picture }}" class="img-fluid">
+                        {% endif %}
+                    </div>
                     <div class="title"><strong>{{ lastPost.title }}</strong>
                         <div class="d-flex align-items-center">
                             <p class="text-muted">{{ lastPost.chapo|slice(0, 50) ~ '...' }}</p>
