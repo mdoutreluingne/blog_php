@@ -16,6 +16,13 @@ Administration
             <p class="text-center">Bienvenue dans votre espace dédié à l'administration du blog. Ici vous pouvez accéder aux :</p>
         </div>
     </div>
+    {# Message #}
+    {% import "layout/alert.html.twig" as message %}
+    {% if success %}
+    {{ message.alert("Action réalisée avec succès", 'success') }}
+    {% elseif error %}
+    {{ message.alert("Erreur, veuillez réessayer en remplissant tous les champs obligatoires", 'danger') }}
+    {% endif %}
     <div class="row">
         <div class="col-12">
             <h5 class="text-center">Posts</h5>

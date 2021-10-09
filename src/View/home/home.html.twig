@@ -84,18 +84,27 @@
             {% set difference = date( now|date()).diff(date(post.updated_at)) %}
             {% set leftDays = difference.days %}
             <div class="post col-xl-4 col-lg-4">
-                <div class="post-thumbnail"><a href="index.php?access=post&id={{ post.id }}"><img src="img/blog-post-1.jpeg" alt="..."
-                            class="img-fluid"></a></div>
+                <div class="post-thumbnail">
+                    <a href="index.php?access=post&id={{ post.id }}&action=read">
+                        {% if post.picture != null %}
+                        <img src="{{ imgPosts }}/{{ post.picture }}" alt="{{ post.picture }}" class="img-fluid">
+                        {% endif %}
+                    </a>
+                </div>
                 <div class="post-details">
                     <div class="post-meta d-flex justify-content-between">
                         <div class="date meta-last created-at">{{ "Mis à jour le " ~ post.updated_at|date("d/m/Y", "Europe/Paris") }}</div>
-                    </div><a href="index.php?access=post&id={{ post.id }}">
+                    </div><a href="index.php?access=post&id={{ post.id }}&action=read">
                         <h3 class="h4">{{ post.title }}</h3>
                     </a>
                     <p class="text-muted">{{ post.chapo|slice(0, 100) ~ '...' }}</p>
                     <footer class="post-footer d-flex align-items-center">
                        <div class="avatar">
-                           <img src="{{ imgUsers }}/user.svg" alt="..." class="img-fluid">
+                           {% if post.avatar != null %}
+                           <img src="{{ imgUsers }}/{{ post.avatar }}" class="img-fluid">
+                           {% else %}
+                           <img src="{{ imgUsers }}/user.svg" class="img-fluid">
+                           {% endif %}
                        </div>
                         <div class="title">
                             <span>{{ post.first_name ~ ' ' ~ post.last_name }}</span>

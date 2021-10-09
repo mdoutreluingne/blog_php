@@ -1,20 +1,29 @@
-<div class="titre-avatar">
-	<h2>Créer un article</h2>
-</div>
+{% extends 'base.html.twig' %}
 
-<form method="post" action="index.php?access=post&action=create" enctype="multipart/form-data">
-	<label for="title">
-		<input type="text" name="title" id="title" placeholder="Rentrez ici le titre de votre article" required>
-	</label>
-	{# <label for="picture">
-		Choisissez l'image principale de l'article
-		<input type="file" name="picture" id="picture" accept="image/x-png,image/gif,image/jpeg" required>
-	</label> #}
-	<h3>Rentrez une courte description de l'article</h3>
-	<textarea name="chapo" id="chapo"></textarea>
-	<h3>Rentrez le contenu de l'article</h3>
-	<textarea name="content" id="content"></textarea>
-	<div class="actions">
-		<button class="btn btn-primary" name="submit" type="submit">Créer</button>
-	</div>
-</form>
+{% block body %}
+<div class="container-form col-12">
+	<h2 class="h2 text-center">Créer un article</h2>
+	<form method="post" action="index.php?access=post&action=create" enctype="multipart/form-data">
+		<div class="form-group">
+			<label>Titre</label>
+			<input type="text" name="title" id="title" class="form-control" required>
+		</div>
+		<div class="form-group">
+			<label>Choisissez l'image principale de l'article</label>
+			<input type="file" name="picture" id="picture" accept="image/x-png,image/jpeg">
+		</div>
+		<div class="form-group">
+			<label>Rentrez une courte description de l'article</label>
+			<textarea name="chapo" id="chapo" rows="5" class="form-control" required></textarea>
+		</div>
+		<div class="form-group">
+			<label>Rentrez le contenu de l'article</label>
+			<textarea name="content" id="content" rows="5" class="form-control" required></textarea>
+		</div>
+		<button class="btn btn-secondary" name="submit" type="submit">Créer</button>
+	</form>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

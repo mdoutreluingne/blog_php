@@ -12,14 +12,24 @@
               {% if success %}
               {{ message.alert("Merci pour votre contribution ! Le commentaire va être étudié puis validé dans les plus brefs délais.", 'success') }}
               {% endif %}
-              <div class="post-thumbnail"><img src="img/blog-post-3.jpeg" alt="..." class="img-fluid"></div>
+              <div class="post-thumbnail">
+                {% if post[0].picture != null %}
+                  <img src="{{ imgPosts }}/{{ post[0].picture }}" alt="..." class="img-fluid">
+                {% endif %}
+              </div>
               <div class="post-meta d-flex justify-content-between">
                 <div class="date meta-last created-at">{{ "Mis à jour le " ~ post[0].updated_at|date("d/m/Y", "Europe/Paris") }}</div>
               </div>
               <div class="post-details">
                 <h1>{{ post[0].title }}</h1>
                 <div class="post-footer d-flex align-items-center flex-column flex-sm-row">
-                    <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid"></div>
+                    <div class="avatar">
+                      {% if post[0].avatar != null %}
+                      <img src="{{ imgUsers }}/{{ post[0].avatar }}" class="img-fluid">
+                      {% else %}
+                      <img src="{{ imgUsers }}/user.svg" class="img-fluid">
+                      {% endif %}
+                    </div>
                     <div class="text-muted">{{ post[0].first_name ~ ' ' ~ post[0].last_name }}</div>
                 </div>
                 <div class="post-body">

@@ -36,30 +36,13 @@ class PostController extends BaseController
                 return $this->update();
                 break;
             case $action == 'delete':
-                $this->delete();
+                return $this->delete();
+                break;
+            case $action == 'read':
+                return $this->read();
                 break;
             default :
-                $postId = filter_input(INPUT_GET, 'id');
-
-                if (isset($postId) && !empty($postId)) {
-                    $post = ModelFactory::getModel("Post")->findPostById($postId);
-                    $comments = ModelFactory::getModel("Comment")->findComentByPost($postId);
-                    $countCommentByPost = ModelFactory::getModel("Comment")->countCommentByPost($postId);
-                    $lastPosts = ModelFactory::getModel("Post")->listLastPosts();
-                }
-                
-                return $this->twig->render("post/post.html.twig", [
-                    'success' => $this->isFormSuccess(),
-                    "post" => $post,
-                    "comments" => $comments,
-                    "countComment" => $countCommentByPost,
-                    "lastPosts" => $lastPosts,
-                ]);
-
-                break;
         }
-        
-        
     }
 
     /**
@@ -81,6 +64,9 @@ class PostController extends BaseController
      */
     private function create()
     {
+        //Check permission
+        $this->isAdmin();
+        
         $post = filter_input_array(INPUT_POST);
 
         if (isset($post['submit'])) {
@@ -89,7 +75,11 @@ class PostController extends BaseController
             $content = htmlspecialchars($post['content']);
             $date = new DateTime('now', new DateTimeZone('Europe/Paris'));
             $date = $date->format('Y-m-d H:i:s');
-            //$mainImagePath = 'assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
+            /* var_dump($_FILES['picture']);
+            die; */
+            if (isset($_FILES['picture']) && !empty($_FILES['picture'])) {
+                $picture = $this->uploadImg("post", $_FILES['picture']);
+            }
 
             $array = [
                 'user_id' => $this->session['user']['id'],
@@ -98,7 +88,7 @@ class PostController extends BaseController
                 'updated_at' => $date,
                 'chapo' => $chapo,
                 'content' => $content,
-                //'main_img_path' => $mainImagePath,
+                'picture' => $picture,
             ];
 
             ModelFactory::getModel('Post')->createData($array);
@@ -110,12 +100,40 @@ class PostController extends BaseController
     }
 
     /**
+     * read
+     *
+     * @return void
+     */
+    private function read()
+    {
+        $postId = filter_input(INPUT_GET, 'id');
+
+        if (isset($postId) && !empty($postId)) {
+            $post = ModelFactory::getModel("Post")->findPostById($postId);
+            $comments = ModelFactory::getModel("Comment")->findComentByPost($postId);
+            $countCommentByPost = ModelFactory::getModel("Comment")->countCommentByPost($postId);
+            $lastPosts = ModelFactory::getModel("Post")->listLastPosts();
+        }
+
+        return $this->twig->render("post/post.html.twig", [
+            'success' => $this->isFormSuccess(),
+            "post" => $post,
+            "comments" => $comments,
+            "countComment" => $countCommentByPost,
+            "lastPosts" => $lastPosts,
+        ]);
+    }
+
+    /**
      * update
      *
      * @return void
      */
     private function update()
     {
+        //Check permission
+        $this->isAdmin();
+
         $post = filter_input_array(INPUT_POST);
         $idPost = filter_input(INPUT_GET, 'id');
         $postById = ModelFactory::getModel("Post")->findPostById($idPost);
@@ -126,9 +144,9 @@ class PostController extends BaseController
             $content = htmlspecialchars($post['content']);
             $date = new DateTime('now', new DateTimeZone('Europe/Paris'));
             $date = $date->format('Y-m-d H:i:s');
-            //$mainImagePath = 'assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
+            $picture = $_FILES['picture']['name'] !== "" ? $this->uploadImg("post", $_FILES['picture']) : $postById[0]['picture'];
 
-            ModelFactory::getModel('Post')->updateData($idPost, ['title' => $title, 'updated_at' => $date, 'chapo' => $chapo, 'content' => $content], ['id' => $idPost]);
+            ModelFactory::getModel('Post')->updateData($idPost, ["title" => $title, "updated_at" => $date, "chapo" => $chapo, "content" => $content, "picture" => $picture], ["id" => $idPost]);
 
             $this->redirect('admin', ['success' => true]);
         }
@@ -145,6 +163,9 @@ class PostController extends BaseController
      */
     private function delete()
     {
+        //Check permission
+        $this->isAdmin();
+
         $idPost = filter_input(INPUT_GET, 'id');
         ModelFactory::getModel('Post')->deleteData('id', ['id' => $idPost]);
 

@@ -65,7 +65,7 @@ class SecurityController extends BaseController
                     //Initialize user session
                     $this->createSession($user);
                     //Redirect user in function of his role
-                    $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin', ['success' => true]) : $this->redirect('blog');
+                    $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin') : $this->redirect('blog');
                 } else {
                     $this->redirect('security', ['error' => true]);
                 }

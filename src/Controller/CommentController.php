@@ -38,7 +38,6 @@ class CommentController extends BaseController
                 $this->delete();
                 break;
             default:
-                break;
         }
     }
 
@@ -84,13 +83,18 @@ class CommentController extends BaseController
      */
     private function update()
     {
+        //Check permission
+        $this->isAdmin();
+
         $comment = filter_input_array(INPUT_POST);
         $idComment = filter_input(INPUT_GET, 'id');
         $commentById = ModelFactory::getModel("Comment")->findCommentById($idComment);
 
         if (isset($comment['submit'])) {
+            
             $content = htmlspecialchars($comment['content']);
-            $validated = $comment['validated'];
+            $validated = filter_has_var(INPUT_POST, 'validated') == true ? 1 : 0;
+
             
             ModelFactory::getModel('Comment')->updateData($idComment, ['content' => $content, 'validated' => $validated], ['id' => $idComment]);
 
@@ -109,6 +113,9 @@ class CommentController extends BaseController
      */
     private function delete()
     {
+        //Check permission
+        $this->isAdmin();
+        
         $idComment = filter_input(INPUT_GET, 'id');
         ModelFactory::getModel('Comment')->deleteData('id', ['id' => $idComment]);
 

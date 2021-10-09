@@ -67,9 +67,49 @@ abstract class BaseController
     public function addGlobals()
     {
         $this->twig->addGlobal('imgPath', "img");
-        $this->twig->addGlobal('imgUsers', "img/profiles");
+        $this->twig->addGlobal('imgUsers', "img/avatar");
         $this->twig->addGlobal('imgPosts', "img/posts");
         $this->twig->addGlobal('session', $this->session);
+    }
+
+    /**
+     * Test if user possesses ADMIN role 
+     *
+     * @return void
+     */
+    protected function isAdmin()
+    {
+        if ($this->getUserSession() != null && $this->getUserSession()['role'] == "ADMIN") {
+            return true;
+        }
+
+        return $this->redirect('home');
+    }
+
+    /**
+     * Test if user possesses USER role 
+     *
+     * @return void
+     */
+    protected function isUser()
+    {
+        if ($this->getUserSession() != null && $this->getUserSession()['role'] == "USER") {
+            return true;
+        } elseif ($this->getUserSession() != null && $this->getUserSession()['role'] == "ADMIN") {
+            return true;
+        }
+
+        return $this->redirect('home');
+    }
+
+    /**
+     * getUserSession
+     *
+     * @return void
+     */
+    protected function getUserSession()
+    {
+        return $this->session['user'];
     }
 
     /**
@@ -153,5 +193,56 @@ abstract class BaseController
         $data['first'] = ($data['currentPage'] * $data['perPage']) - $data['perPage'];
 
         return $data;
-    }    
+    }
+
+    /**
+     * uploadImg
+     *
+     * @return void
+     */
+    protected function uploadImg(string $type, array $picture)
+    {
+        switch ($type) {
+            case $type == 'post':
+                if (isset($picture['name']) and !empty($picture['name']) and $picture['error'] == 0) {
+
+                    // Testons si le fichier n'est pas trop gros
+                    if ($picture['size'] <= 1000000) {
+                        // Testons si l'extension est autorisée
+                        $extension_upload = pathinfo($picture['name'], PATHINFO_EXTENSION);
+                        $extensions_autorisees = array('jpg', 'jpeg', 'png');
+                        if (in_array($extension_upload, $extensions_autorisees)) {
+                            //Generate a unique name for the picture
+                            $pictureName = basename(md5(uniqid()) . '.' . $extension_upload);
+                            // On peut valider le fichier et le stocker définitivement
+                            move_uploaded_file($picture['tmp_name'], 'img/posts/' . $pictureName);
+
+                            return $pictureName;
+                        }
+                    }
+                }
+                break;
+            case $type == 'user':
+                if (isset($picture['name']) and $picture['error'] == 0) {
+
+                    // Testons si le fichier n'est pas trop gros
+                    if ($picture['size'] <= 1000000) {
+                        // Testons si l'extension est autorisée
+                        $extension_upload = pathinfo($picture['name'], PATHINFO_EXTENSION);
+                        $extensions_autorisees = array('jpg', 'jpeg', 'png');
+                        if (in_array($extension_upload, $extensions_autorisees)) {
+                            //Generate a unique name for the picture
+                            $pictureName = basename(md5(uniqid()) . '.' . $extension_upload);
+                            // On peut valider le fichier et le stocker définitivement
+                            move_uploaded_file($picture['tmp_name'], 'img/avatar/' . $pictureName);
+
+                            return $pictureName;
+                        }
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
