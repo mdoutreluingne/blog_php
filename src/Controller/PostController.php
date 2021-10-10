@@ -46,18 +46,6 @@ class PostController extends BaseController
     }
 
     /**
-     * saveSessionPost
-     *
-     * @return void
-     */
-    public function saveSessionPost(int $id)
-    {
-        $this->session['post']['id'] = $id;
-
-        $_SESSION['post'] = $this->session['post'];
-    }
-
-    /**
      * Create post
      *
      * @return void

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container-form col-12">
+	<h2 class="h2 text-center">Créer un utilisateur</h2>
+	<form method="post" action="index.php?access=user&action=create" enctype="multipart/form-data">
+		<div class="form-group">
+			<label class="form-control-label">Prénom*</label>
+			<input type="text" id="firstname" name="firstname" class="form-control form-control-lg" />
+		</div>
+		<div class="form-group">
+			<label class="form-control-label">Nom*</label>
+			<input type="text" id="lastname" name="lastname" class="form-control form-control-lg" />
+		</div>
+		<div class="form-group">
+			<label class="form-control-label">Email*</label>
+			<input type="email" name="email" class="form-control">
+		</div>
+		<div class="form-group">
+			<label class="form-control-label">Mot de passe*</label>
+			<input type="password" id="password" name="password" class="form-control form-control-lg" />
+		</div>
+		<div class="form-group">
+			<label class="form-control-label">Répéter le mot de passe*</label>
+			<input type="password" id="repeatpassword" name="repeatpassword" class="form-control form-control-lg" />
+		</div>
+		<div class="form-group">
+			<label class="form-control-label">Role*</label>
+			<select class="form-control" name="role" id="role">
+				<option value="USER">USER</option>
+				<option value="ADMIN">ADMIN</option>
+			</select>
+		</div>
+		<button class="btn btn-secondary" name="submit" type="submit">Créer</button>
+	</form>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

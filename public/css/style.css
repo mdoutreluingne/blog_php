@@ -2816,6 +2816,17 @@ input[type=text] {
     padding-left: 0px;
 }
 
+input[type=email] {
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    margin-bottom: 20px;
+    padding-left: 0px;
+}
+
 input[type=password] {
     border: none;
     border-bottom: 2px solid #0DB8DE;
