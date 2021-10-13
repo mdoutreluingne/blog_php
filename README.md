@@ -9,7 +9,7 @@ Cloner le projet sur votre disque dur.
 
 Lancer la commande "composer install" depuis le répertoire du projet afin d'installer les librairies nécessaires :
 ```text
-npm install
+composer install
 ```
 
 #### Accès base de données
