@@ -29,10 +29,12 @@ class AdminController extends BaseController
         
         $allPosts = ModelFactory::getModel("Post")->listPostsAdmin();
         $allComments = ModelFactory::getModel("Comment")->listComments();
+        $allUsers = ModelFactory::getModel("User")->listUsers();
 
         return $this->twig->render("admin/home.html.twig", [
             "allPosts" => $allPosts,
             "allComments" => $allComments,
+            "allUsers" => $allUsers,
             "success" => $this->isFormSuccess(),
             "error" => $this->isFormError(),
         ]);

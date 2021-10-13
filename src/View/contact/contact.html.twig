@@ -27,24 +27,28 @@
                 <div class="col-lg-8 left">
                     <h3>Envoyer le message</h3>
 
-                    <form action="index.php?access=mail" method="post" enctype="multipart/form-data">
+                    <form action="index.php?access=contact" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="firstname" placeholder="Prénom*" required>
+                                <input type="text" class="form-control" name="firstname" placeholder="Prénom*" required value="{{ data.firstname }}">
+                                {{ errors['firstname'] is defined ? message.alert(errors['firstname'], 'danger') : "" }}
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="lastname" placeholder="Nom*" required>
+                                <input type="text" class="form-control" name="lastname" placeholder="Nom*" required value="{{ data.lastname }}">
+                                {{ errors['lastname'] is defined ? message.alert(errors['lastname'], 'danger') : "" }}
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <input type="email" class="form-control" name="email" placeholder="Email*" required>
+                                <input type="email" class="form-control" name="email" placeholder="Email*" required value="{{ data.email }}">
+                                {{ errors['email'] is defined ? message.alert(errors['email'], 'danger') : "" }}
                             </div>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" rows="5" name="message" id="comment" placeholder="Message*" required></textarea>
+                            <textarea class="form-control" rows="5" name="message" id="comment" placeholder="Message*" required>{{ data.message }}</textarea>
+                            {{ errors['message'] is defined ? message.alert(errors['message'], 'danger') : "" }}
                         </div>
-                        <button class="btn btn-block" type="submit">Envoyer</button>
+                        <button class="btn btn-block" name="submit" type="submit">Envoyer</button>
                     </form>
                 </div>
                 <!-- Left -->

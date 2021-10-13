@@ -98,6 +98,41 @@ Administration
             </table>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12">
+            <h5 class="text-center">Utilisateurs</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <a href="index.php?access=user&action=create">Ajouter un utilisateur</a>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in allUsers %}
+                    <tr>
+                        <td>{{ user.last_name }}</td>
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>
+                            <a href="index.php?access=user&id={{ user.id }}&action=update">Modifier</a>
+                            <a href="index.php?access=user&id={{ user.id }}&action=delete"
+                                onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément ?');">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="2">Aucun utilisateur</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

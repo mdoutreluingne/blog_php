@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{# Message #}
+{% import "layout/alert.html.twig" as message %}
+
+<div class="container-form col-12">
+	<h2 class="h2 text-center">Mettre à jour un utilisateur</h2>
+	<form method="post" action="index.php?access=user&id={{ idUser is defined ? idUser : user.id }}&action=update" enctype="multipart/form-data">
+		<div class="form-group">
+			<label class="form-control-label">Prénom*</label>
+			<input type="text" id="firstname" name="firstname" class="form-control form-control-lg" required
+				value="{{ user.firstname is defined ? user.firstname : user.first_name }}" />
+			{{ errors['firstname'] is defined ? message.alert(errors['firstname'], 'danger') : "" }}
+		</div>
+		<div class="form-group">
+			<label class="form-control-label">Nom*</label>
+			<input type="text" id="lastname" name="lastname" class="form-control form-control-lg" required
+				value="{{ user.lastname is defined ? user.lastname : user.last_name }}" />
+			{{ errors['lastname'] is defined ? message.alert(errors['lastname'], 'danger') : "" }}
+		</div>
+		<div class="form-group">
+			<label class="form-control-label">Email*</label>
+			<input type="email" name="email" class="form-control" required value="{{ user.email }}">
+			{{ errors['email'] is defined ? message.alert(errors['email'], 'danger') : "" }}
+		</div>
+		<div class="form-group">
+			<label class="form-control-label">Mot de passe</label>
+			<input type="password" id="password" name="password" class="form-control form-control-lg" />
+		</div>
+		<div class="form-group">
+			<label class="form-control-label">Répéter le mot de passe</label>
+			<input type="password" id="repeatpassword" name="repeatpassword" class="form-control form-control-lg" />
+		</div>
+		<div class="form-group">
+			<label class="form-control-label">Role*</label>
+			<select class="form-control" name="role" id="role">
+				<option selected="selected">
+					{{ user.role }}
+				</option>
+				<option value="USER">USER</option>
+				<option value="ADMIN">ADMIN</option>
+			</select>
+		</div>
+		<button class="btn btn-secondary" name="submit" type="submit">Modifier</button>
+	</form>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

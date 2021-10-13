@@ -29,39 +29,34 @@ class RegistrationController extends BaseController
         //Submit form
         if (isset($dataPost['submit'])) {
 
-            //Test all the fields
-            if (
-                isset($dataPost['firstname']) && !empty($dataPost['firstname']) &&
-                isset($dataPost['lastname']) && !empty($dataPost['lastname']) &&
-                isset($dataPost['email']) && !empty($dataPost['email']) &&
-                isset($dataPost['password']) && !empty($dataPost['password']) &&
-                isset($dataPost['repeatpassword']) && !empty($dataPost['repeatpassword'])
-            ) {
-                //The passwords are the same
-                if ($dataPost['password'] == $dataPost['repeatpassword']) {
-                    $user = ModelFactory::getModel('User')->readData($dataPost['email'], "email");
+            //Call validation class
+            $errors = $this->validation->validate($dataPost, 'Registration');
 
-                    if (isset($user) && empty($user)) {
-                        //Get data form
-                        $data = [];
-                        $data['first_name'] = $dataPost['firstname'];
-                        $data['last_name'] = $dataPost['lastname'];
-                        $data['email'] = $dataPost['email'];
-                        $data['password'] = password_hash($dataPost['password'], PASSWORD_DEFAULT);
-                        $data['role'] = "USER";
+            if (!$errors) {
+                $user = ModelFactory::getModel('User')->readData($dataPost['email'], "email");
 
-                        ModelFactory::getModel('User')->createData($data);
+                if (isset($user) && empty($user)) {
+                    //Get data form
+                    $data = [];
+                    $data['first_name'] = $dataPost['firstname'];
+                    $data['last_name'] = $dataPost['lastname'];
+                    $data['email'] = $dataPost['email'];
+                    $data['password'] = password_hash($dataPost['password'], PASSWORD_DEFAULT);
+                    $data['role'] = "USER";
 
-                        $this->redirect('security', ['success' => true]);
-                    } else {
-                        $this->redirect('registration', ['error' => true]);
-                    }
+                    ModelFactory::getModel('User')->createData($data);
+
+                    $this->redirect('security', ['success' => true, 'type' => 'login']);
                 } else {
                     $this->redirect('registration', ['error' => true]);
                 }
-            } else {
-                $this->redirect('registration', ['error' => true]);
             }
+
+            return $this->twig->render("registration/register.html.twig", [
+                'data' => $dataPost,
+                'errors' => $errors,
+                'error' => $this->isFormError(),
+            ]);
         }
         
         return $this->twig->render("registration/register.html.twig", [

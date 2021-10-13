@@ -20,27 +20,30 @@ S'inscrire
                         {# Message #}
                         {% import "layout/alert.html.twig" as message %}
                         {% if error %}
-                        {{ message.alert("Erreur lors de l'inscription, veuillez réessayer en remplissant tous les champs", 'danger') }}
+                        {{ message.alert("Erreur l'email existe déjà", 'danger') }}
                         {% endif %}
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
                                         <label class="form-control-label">Prénom*</label>
-                                        <input type="text" id="firstname" name="firstname" class="form-control form-control-lg" />
+                                        <input type="text" id="firstname" name="firstname" class="form-control form-control-lg" required value="{{ data.firstname }}"/>
+                                        {{ errors['firstname'] is defined ? message.alert(errors['firstname'], 'danger') : "" }}
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
                                         <label class="form-control-label">Nom*</label>
-                                        <input type="text" id="lastname" name="lastname" class="form-control form-control-lg" />
+                                        <input type="text" id="lastname" name="lastname" class="form-control form-control-lg" required value="{{ data.lastname }}"/>
+                                        {{ errors['lastname'] is defined ? message.alert(errors['lastname'], 'danger') : "" }}
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mb-4 pb-2">
                                     <div class="form-outline">
-                                        <label class="form-control-label">Email</label>
-                                        <input type="text" name="email" class="form-control">
+                                        <label class="form-control-label">Email*</label>
+                                        <input type="email" name="email" class="form-control" required value="{{ data.email }}">
+                                        {{ errors['email'] is defined ? message.alert(errors['email'], 'danger') : "" }}
                                     </div>
                                 </div>
                             </div>
@@ -48,13 +51,15 @@ S'inscrire
                                 <div class="col-md-6 mb-4 pb-2">
                                     <div class="form-outline">
                                         <label class="form-control-label">Mot de passe*</label>
-                                        <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                                        <input type="password" id="password" name="password" class="form-control form-control-lg" required/>
+                                        {{ errors['password'] is defined ? message.alert(errors['password'], 'danger') : "" }}
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4 pb-2">
                                     <div class="form-outline">
                                         <label class="form-control-label">Répéter le mot de passe*</label>
-                                        <input type="password" id="repeatpassword" name="repeatpassword" class="form-control form-control-lg" />
+                                        <input type="password" id="repeatpassword" name="repeatpassword" class="form-control form-control-lg" required/>
+                                        {{ errors['repeatpassword'] is defined ? message.alert(errors['repeatpassword'], 'danger') : "" }}
                                     </div>
                                 </div>
                             </div>
