@@ -61,19 +61,23 @@ class CommentController extends BaseController
         //Get data form
         $dataPost = filter_input_array(INPUT_POST);
 
-        $data = [];
+        if (isset($dataPost['content']) && !empty($dataPost['content'])) {
+            $data = [];
 
-        $data['content'] = htmlspecialchars($dataPost['content']);
-        $data['created_at'] = new DateTime('now', new DateTimeZone('Europe/Paris'));
-        $data['created_at'] = $data['created_at']->format('Y-m-d H:i:s');
-        $data['validated'] = 0;
-        $data['user_id'] = $this->session['user']['id'];
-        $data['post_id'] = $this->getIdPost();
+            $data['content'] = htmlspecialchars($dataPost['content']);
+            $data['created_at'] = new DateTime('now', new DateTimeZone('Europe/Paris'));
+            $data['created_at'] = $data['created_at']->format('Y-m-d H:i:s');
+            $data['validated'] = 0;
+            $data['user_id'] = $this->session['user']['id'];
+            $data['post_id'] = $this->getIdPost();
 
-        //Create comment
-        ModelFactory::getModel('Comment')->createData($data);
+            //Create comment
+            ModelFactory::getModel('Comment')->createData($data);
 
-        $this->redirect('post', ['success' => true, 'id' => $this->getIdPost()]);
+            $this->redirect('post', ['success' => true, 'action' => 'read', 'id' => $this->getIdPost()]);
+        } else {
+            $this->redirect('post', ['error' => true, 'action' => 'read', 'id' => $this->getIdPost()]);
+        }
     }
 
     /**
@@ -91,14 +95,24 @@ class CommentController extends BaseController
         $commentById = ModelFactory::getModel("Comment")->findCommentById($idComment);
 
         if (isset($comment['submit'])) {
+            //Call validation class
+            $errors = $this->validation->validate($comment, 'Comment');
             
-            $content = htmlspecialchars($comment['content']);
-            $validated = filter_has_var(INPUT_POST, 'validated') == true ? 1 : 0;
+            if (!$errors) {
+                $content = htmlspecialchars($comment['content']);
+                $validated = filter_has_var(INPUT_POST, 'validated') == true ? 1 : 0;
 
-            
-            ModelFactory::getModel('Comment')->updateData($idComment, ['content' => $content, 'validated' => $validated], ['id' => $idComment]);
 
-            $this->redirect('admin', ['success' => true]);
+                ModelFactory::getModel('Comment')->updateData($idComment, ['content' => $content, 'validated' => $validated], ['id' => $idComment]);
+
+                $this->redirect('admin', ['success' => true]);
+            }
+
+            return $this->twig->render("comment/update.html.twig", [
+                'comment' => $comment,
+                'errors' => $errors,
+                'idComment' => $idComment,
+            ]);
         }
 
         return $this->twig->render("comment/update.html.twig", [

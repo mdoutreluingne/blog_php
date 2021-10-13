@@ -1,32 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{# Message #}
+{% import "layout/alert.html.twig" as message %}
+
 <div class="container-form col-12">
 	<h2 class="h2 text-center">Créer un utilisateur</h2>
 	<form method="post" action="index.php?access=user&action=create" enctype="multipart/form-data">
 		<div class="form-group">
 			<label class="form-control-label">Prénom*</label>
-			<input type="text" id="firstname" name="firstname" class="form-control form-control-lg" />
+			<input type="text" id="firstname" name="firstname" class="form-control form-control-lg" required value="{{ data.firstname }}"/>
+			{{ errors['firstname'] is defined ? message.alert(errors['firstname'], 'danger') : "" }}
 		</div>
 		<div class="form-group">
 			<label class="form-control-label">Nom*</label>
-			<input type="text" id="lastname" name="lastname" class="form-control form-control-lg" />
+			<input type="text" id="lastname" name="lastname" class="form-control form-control-lg" required value="{{ data.lastname }}"/>
+			{{ errors['lastname'] is defined ? message.alert(errors['lastname'], 'danger') : "" }}
 		</div>
 		<div class="form-group">
 			<label class="form-control-label">Email*</label>
-			<input type="email" name="email" class="form-control">
+			<input type="email" name="email" class="form-control" required value="{{ data.email }}">
+			{{ errors['email'] is defined ? message.alert(errors['email'], 'danger') : "" }}
 		</div>
 		<div class="form-group">
 			<label class="form-control-label">Mot de passe*</label>
-			<input type="password" id="password" name="password" class="form-control form-control-lg" />
+			<input type="password" id="password" name="password" class="form-control form-control-lg" required/>
+			{{ errors['password'] is defined ? message.alert(errors['password'], 'danger') : "" }}
 		</div>
 		<div class="form-group">
 			<label class="form-control-label">Répéter le mot de passe*</label>
-			<input type="password" id="repeatpassword" name="repeatpassword" class="form-control form-control-lg" />
+			<input type="password" id="repeatpassword" name="repeatpassword" class="form-control form-control-lg" required/>
+			{{ errors['repeatpassword'] is defined ? message.alert(errors['repeatpassword'], 'danger') : "" }}
 		</div>
 		<div class="form-group">
 			<label class="form-control-label">Role*</label>
 			<select class="form-control" name="role" id="role">
+				{% if data.role is defined %}
+					<option selected="selected">
+						{{ data.role }}
+					</option>
+				{% endif %}
 				<option value="USER">USER</option>
 				<option value="ADMIN">ADMIN</option>
 			</select>

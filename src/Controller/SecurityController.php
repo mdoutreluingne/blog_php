@@ -27,20 +27,14 @@ class SecurityController extends BaseController
 
         if (isset($type) && !empty($type)) {
             if ($type == "login") {
-                //Get data form
-                $dataPost = filter_input_array(INPUT_POST);
                 //Connect user
-                $this->connexion($dataPost);
+                return $this->connexion();
             } else {
                 //Logout user
                 $this->logout();
             }
-        }
+        }       
         
-        return $this->twig->render("security/login.html.twig", [
-            'success' => $this->isFormSuccess(),
-            'error' => $this->isFormError(),
-        ]);
     }
 
     /**
@@ -48,33 +42,49 @@ class SecurityController extends BaseController
      *
      * @return void
      */
-    private function connexion(array $data)
+    private function connexion()
     {
-        if (
-            isset($data['submit']) &&
-            isset($data['email']) && !empty($data['email']) &&
-            isset($data['password']) && !empty($data['password'])
-        ) {
-            $user = ModelFactory::getModel('User')->readData($data['email'], "email");
+        //Get data form
+        $data = filter_input_array(INPUT_POST);
 
-            if (isset($user) && !empty($user)) {
-                $passwordForm = $data['password'];
-                $passwordHash = $user['password'];
+        if (isset($data['submit'])) {
 
-                if ($this->checkPassword($passwordForm, $passwordHash)) {
-                    //Initialize user session
-                    $this->createSession($user);
-                    //Redirect user in function of his role
-                    $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin') : $this->redirect('blog');
+            //Call validation class
+            $errors = $this->validation->validate($data, 'Security');
+
+            if (!$errors) {
+                $user = ModelFactory::getModel('User')->readData($data['email'], "email");
+
+                if (isset($user) && !empty($user)) {
+                    $passwordForm = $data['password'];
+                    $passwordHash = $user['password'];
+
+                    if ($this->checkPassword($passwordForm, $passwordHash)) {
+                        //Initialize user session
+                        $this->createSession($user);
+                        //Redirect user in function of his role
+                        $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin') : $this->redirect('blog');
+                    } else {
+                        $this->redirect('security', ['error' => true, 'type' => 'login']);
+                    }
                 } else {
-                    $this->redirect('security', ['error' => true]);
+                    $this->redirect('security', ['error' => true, 'type' => 'login']);
                 }
-            } else {
-                $this->redirect('security', ['error' => true]);
             }
-        } else {
-            $this->redirect('security', ['error' => true]);
+
+            return $this->twig->render("security/login.html.twig", [
+                'data' => $data,
+                'errors' => $errors,
+                'success' => $this->isFormSuccess(),
+                'error' => $this->isFormError(),
+            ]);
+
         }
+
+        return $this->twig->render("security/login.html.twig", [
+            'success' => $this->isFormSuccess(),
+            'error' => $this->isFormError(),
+        ]);
         
     }
 

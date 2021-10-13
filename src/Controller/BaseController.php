@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use App\Constraint\Validation;
 use App\Model\Factory\ModelFactory;
 
 /**
@@ -18,6 +19,7 @@ abstract class BaseController
      */
     protected $twig = null;
     protected $session = null;
+    protected $validation;
 
     /**
      * BaseController constructor
@@ -27,6 +29,7 @@ abstract class BaseController
     {
         session_start();
         $this->session = filter_var_array($_SESSION);
+        $this->validation = new Validation();
 
         $this->initTwig();
         $this->addGlobals();

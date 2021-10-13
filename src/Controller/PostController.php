@@ -58,30 +58,40 @@ class PostController extends BaseController
         $post = filter_input_array(INPUT_POST);
 
         if (isset($post['submit'])) {
-            $title = htmlspecialchars($post['title']);
-            $chapo = htmlspecialchars($post['chapo']);
-            $content = htmlspecialchars($post['content']);
-            $date = new DateTime('now', new DateTimeZone('Europe/Paris'));
-            $date = $date->format('Y-m-d H:i:s');
-            /* var_dump($_FILES['picture']);
-            die; */
-            if (isset($_FILES['picture']) && !empty($_FILES['picture'])) {
-                $picture = $this->uploadImg("post", $_FILES['picture']);
+            //Call validation class
+            $errors = $this->validation->validate($post, 'Post');
+            
+            if (!$errors) {
+                $title = htmlspecialchars($post['title']);
+                $chapo = htmlspecialchars($post['chapo']);
+                $content = htmlspecialchars($post['content']);
+                $date = new DateTime('now', new DateTimeZone('Europe/Paris'));
+                $date = $date->format('Y-m-d H:i:s');
+
+                
+                if (isset($_FILES['picture']) && !empty($_FILES['picture'])) {
+                    $picture = $this->uploadImg("post", $_FILES['picture']);
+                }
+
+                $array = [
+                    'user_id' => $this->session['user']['id'],
+                    'title' => $title,
+                    'created_at' => $date,
+                    'updated_at' => $date,
+                    'chapo' => $chapo,
+                    'content' => $content,
+                    'picture' => $picture,
+                ];
+
+                ModelFactory::getModel('Post')->createData($array);
+
+                $this->redirect('admin', ['success' => true]);
             }
 
-            $array = [
-                'user_id' => $this->session['user']['id'],
-                'title' => $title,
-                'created_at' => $date,
-                'updated_at' => $date,
-                'chapo' => $chapo,
-                'content' => $content,
-                'picture' => $picture,
-            ];
-
-            ModelFactory::getModel('Post')->createData($array);
-
-            $this->redirect('admin', ['success' => true]);
+            return $this->twig->render('post/create.html.twig', [
+                'post' => $post,
+                'errors' => $errors
+            ]);
         }
 
         return $this->twig->render("post/create.html.twig");
@@ -105,6 +115,7 @@ class PostController extends BaseController
 
         return $this->twig->render("post/post.html.twig", [
             'success' => $this->isFormSuccess(),
+            'error' => $this->isFormError(),
             "post" => $post,
             "comments" => $comments,
             "countComment" => $countCommentByPost,
@@ -127,16 +138,27 @@ class PostController extends BaseController
         $postById = ModelFactory::getModel("Post")->findPostById($idPost);
 
         if (isset($post['submit'])) {
-            $title = htmlspecialchars($post['title']);
-            $chapo = htmlspecialchars($post['chapo']);
-            $content = htmlspecialchars($post['content']);
-            $date = new DateTime('now', new DateTimeZone('Europe/Paris'));
-            $date = $date->format('Y-m-d H:i:s');
-            $picture = $_FILES['picture']['name'] !== "" ? $this->uploadImg("post", $_FILES['picture']) : $postById[0]['picture'];
+            //Call validation class
+            $errors = $this->validation->validate($post, 'Post');
 
-            ModelFactory::getModel('Post')->updateData($idPost, ["title" => $title, "updated_at" => $date, "chapo" => $chapo, "content" => $content, "picture" => $picture], ["id" => $idPost]);
+            if (!$errors) {
+                $title = htmlspecialchars($post['title']);
+                $chapo = htmlspecialchars($post['chapo']);
+                $content = htmlspecialchars($post['content']);
+                $date = new DateTime('now', new DateTimeZone('Europe/Paris'));
+                $date = $date->format('Y-m-d H:i:s');
+                $picture = $_FILES['picture']['name'] !== "" ? $this->uploadImg("post", $_FILES['picture']) : $postById[0]['picture'];
 
-            $this->redirect('admin', ['success' => true]);
+                ModelFactory::getModel('Post')->updateData($idPost, ["title" => $title, "updated_at" => $date, "chapo" => $chapo, "content" => $content, "picture" => $picture], ["id" => $idPost]);
+
+                $this->redirect('admin', ['success' => true]);
+            }
+
+            return $this->twig->render('post/update.html.twig', [
+                'post' => $post,
+                'errors' => $errors,
+                'idPost' => $idPost
+            ]);
         }
 
         return $this->twig->render("post/update.html.twig", [

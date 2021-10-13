@@ -57,9 +57,9 @@ abstract class MainModel
      */
     public function createData(array $data)
     {
-        $keys   = implode(", ", array_keys($data));
-        $values = implode("', '", $data);
-        $query  = "INSERT INTO " . $this->table . " (" . $keys . ") VALUES ('" . $values . "')";
+        $keys = implode(', ', array_keys($data));
+        $values = implode('", "', $data);
+        $query = 'INSERT INTO ' . $this->table . ' (' . $keys . ') VALUES ("' . $values . '")';
 
         $this->database->setData($query);
     }
