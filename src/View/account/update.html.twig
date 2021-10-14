@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{# Message #}
+{% import "layout/alert.html.twig" as message %}
+
 <div class="account col-12">
 	<h2 class="h2 text-center">Modifier votre compte</h2>
-	<form method="post" action="index.php?access=account&id={{ user['id'] }}&action=update" enctype="multipart/form-data">
+	<form method="post" action="index.php?access=account&id={{ idUser is defined ? idUser : user['id'] }}&action=update" enctype="multipart/form-data">
 		<div class="preview text-center">
 			{% if user['avatar'] != null %}
 				<img class="preview-img" src="{{ imgUsers }}/{{ user['avatar'] }}" width="200" height="200" />
@@ -12,20 +15,25 @@
 			{% endif %}
 			<div class="browse-button">
 				<i class="fa fa-pencil-alt"></i>
-				<input class="browse-input" type="file" name="avatar" id="avatar" />
+				<input class="browse-input" type="file" name="avatar" id="avatar" accept=".png, .jpg, .jpeg" />
 			</div>
+		</div>	
+		<div class="form-group">
+			<label>Prénom</label>
+			<input class="form-control" type="text" name="first_name" id="first_name" required
+				value="{{ user.first_name is defined ? user.first_name : user['first_name'] }}">
+			{{ errors['first_name'] is defined ? message.alert(errors['first_name'], 'danger') : "" }}
 		</div>
 		<div class="form-group">
 			<label>Nom</label>
-			<input class="form-control" type="text" name="last_name" id="last_name" required value="{{ user['last_name'] }}">
-		</div>
-		<div class="form-group">
-			<label>Prénom</label>
-			<input class="form-control" type="text" name="first_name" id="first_name" required value="{{ user['first_name'] }}">
+			<input class="form-control" type="text" name="last_name" id="last_name" required
+				value="{{ user.last_name is defined ? user.last_name : user['last_name'] }}">
+			{{ errors['last_name'] is defined ? message.alert(errors['last_name'], 'danger') : "" }}
 		</div>
 		<div class="form-group">
 			<label>Email:</label>
 			<input class="form-control" type="text" name="email" id="email" required value="{{ user['email'] }}">
+			{{ errors['email'] is defined ? message.alert(errors['email'], 'danger') : "" }}
 		</div>
 		<div class="form-group text-center">
 			<button class="btn btn-secondary" name="submit" type="submit">Modifier</button>

@@ -9,15 +9,15 @@
 	<form method="post" action="index.php?access=user&id={{ idUser is defined ? idUser : user.id }}&action=update" enctype="multipart/form-data">
 		<div class="form-group">
 			<label class="form-control-label">Prénom*</label>
-			<input type="text" id="firstname" name="firstname" class="form-control form-control-lg" required
-				value="{{ user.firstname is defined ? user.firstname : user.first_name }}" />
-			{{ errors['firstname'] is defined ? message.alert(errors['firstname'], 'danger') : "" }}
+			<input type="text" id="first_name" name="first_name" class="form-control form-control-lg" required
+				value="{{ user.first_name is defined ? user.first_name : user.first_name }}" />
+			{{ errors['first_name'] is defined ? message.alert(errors['first_name'], 'danger') : "" }}
 		</div>
 		<div class="form-group">
 			<label class="form-control-label">Nom*</label>
-			<input type="text" id="lastname" name="lastname" class="form-control form-control-lg" required
-				value="{{ user.lastname is defined ? user.lastname : user.last_name }}" />
-			{{ errors['lastname'] is defined ? message.alert(errors['lastname'], 'danger') : "" }}
+			<input type="text" id="last_name" name="last_name" class="form-control form-control-lg" required
+				value="{{ user.last_name is defined ? user.last_name : user.last_name }}" />
+			{{ errors['last_name'] is defined ? message.alert(errors['last_name'], 'danger') : "" }}
 		</div>
 		<div class="form-group">
 			<label class="form-control-label">Email*</label>

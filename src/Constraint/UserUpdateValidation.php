@@ -25,10 +25,10 @@ class UserUpdateValidation extends Validation
 
     private function checkField($name, $value)
     {
-        if ($name === 'lastname') {
+        if ($name === 'last_name') {
             $error = $this->checkLastname($name, $value);
             $this->addError($name, $error);
-        } elseif ($name === 'firstname') {
+        } elseif ($name === 'first_name') {
             $error = $this->checkFirstname($name, $value);
             $this->addError($name, $error);
         } elseif ($name === 'email') {
