@@ -174,7 +174,7 @@ abstract class BaseController
     protected function paginate(?string $search): array
     {
         $data = [];
-        
+
         //Get current page url
         $page = filter_input(INPUT_GET, 'page');
         //Number of post each page
@@ -205,47 +205,33 @@ abstract class BaseController
      */
     protected function uploadImg(string $type, array $picture)
     {
-        switch ($type) {
-            case $type == 'post':
-                if (isset($picture['name']) and !empty($picture['name']) and $picture['error'] == 0) {
+        //Test if the image has no error and less than 1 Mo
+        if (isset($picture['name']) && $picture['error'] == 0 && $picture['size'] <= 1000000) {
+            //Let's test if the extension is allowed
+            $extension_upload = pathinfo($picture['name'], PATHINFO_EXTENSION);
+            $extensions_autorisees = ['jpg', 'jpeg', 'png'];
 
-                    // Testons si le fichier n'est pas trop gros
-                    if ($picture['size'] <= 1000000) {
-                        // Testons si l'extension est autorisée
-                        $extension_upload = pathinfo($picture['name'], PATHINFO_EXTENSION);
-                        $extensions_autorisees = array('jpg', 'jpeg', 'png');
-                        if (in_array($extension_upload, $extensions_autorisees)) {
-                            //Generate a unique name for the picture
-                            $pictureName = basename(md5(uniqid()) . '.' . $extension_upload);
-                            // On peut valider le fichier et le stocker définitivement
-                            move_uploaded_file($picture['tmp_name'], 'img/posts/' . $pictureName);
+            if (in_array($extension_upload, $extensions_autorisees)) {
+                //Generate a unique name for the picture
+                $pictureName = basename(md5(uniqid()) . '.' . $extension_upload);
+                switch ($type) {
+                    case 'post' == $type:
+                        //We can storage picture in the folder
+                        move_uploaded_file($picture['tmp_name'], 'img/posts/' . $pictureName);
 
-                            return $pictureName;
-                        }
-                    }
+                        return $pictureName;
+                        break;
+                    case 'user' == $type:
+                        //Generate a unique name for the picture
+                        //$pictureName = basename(md5(uniqid()) . '.' . $extension_upload);
+                        //We can storage picture in the folder
+                        move_uploaded_file($picture['tmp_name'], 'img/avatar/' . $pictureName);
+
+                        return $pictureName;
+                        break;
+                    default:
                 }
-                break;
-            case $type == 'user':
-                if (isset($picture['name']) and $picture['error'] == 0) {
-
-                    // Testons si le fichier n'est pas trop gros
-                    if ($picture['size'] <= 1000000) {
-                        // Testons si l'extension est autorisée
-                        $extension_upload = pathinfo($picture['name'], PATHINFO_EXTENSION);
-                        $extensions_autorisees = array('jpg', 'jpeg', 'png');
-                        if (in_array($extension_upload, $extensions_autorisees)) {
-                            //Generate a unique name for the picture
-                            $pictureName = basename(md5(uniqid()) . '.' . $extension_upload);
-                            // On peut valider le fichier et le stocker définitivement
-                            move_uploaded_file($picture['tmp_name'], 'img/avatar/' . $pictureName);
-
-                            return $pictureName;
-                        }
-                    }
-                }
-                break;
-            default:
-                break;
+            }  
         }
     }
 }

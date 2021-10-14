@@ -54,22 +54,33 @@ class AccountController extends BaseController
         $user = filter_input_array(INPUT_POST);
 
         if (isset($user['submit'])) {
-            $userByEmail = ModelFactory::getModel('User')->readData($user['email'], "email");
+            //Call validation class
+            $errors = $this->validation->validate($user, 'UserUpdate');
+            
+            if (!$errors) {
+                $userByEmail = ModelFactory::getModel('User')->readData($user['email'], "email");
 
-            $last_name = htmlspecialchars($user['last_name']);
-            $first_name = htmlspecialchars($user['first_name']);
-            $email = htmlspecialchars($user['email']);
-            $avatar = $_FILES['avatar']['name'] !== "" ? $this->uploadImg("user", $_FILES['avatar']) : $userByEmail['avatar'];
+                $last_name = htmlspecialchars($user['last_name']);
+                $first_name = htmlspecialchars($user['first_name']);
+                $email = htmlspecialchars($user['email']);
+                $avatar = $_FILES['avatar']['name'] !== "" ? $this->uploadImg("user", $_FILES['avatar']) : $userByEmail['avatar'];
 
-            ModelFactory::getModel('User')->updateData($this->session['user']['id'], ['last_name' => $last_name, 'first_name' => $first_name, 'email' => $email, 'avatar' => $avatar], ['id' => $this->session['user']['id']]);
+                ModelFactory::getModel('User')->updateData($this->session['user']['id'], ['last_name' => $last_name, 'first_name' => $first_name, 'email' => $email, 'avatar' => $avatar], ['id' => $this->session['user']['id']]);
 
-            //Refresh session user
-            $user['id'] = $userByEmail['id'];
-            $user['role'] = $userByEmail['role'];
-            $user['avatar'] = $avatar;
-            $this->createSession($user);
+                //Refresh session user
+                $user['id'] = $userByEmail['id'];
+                $user['role'] = $userByEmail['role'];
+                $user['avatar'] = $avatar;
+                $this->createSession($user);
 
-            $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin', ['success' => true]) : $this->redirect('blog');
+                $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin', ['success' => true]) : $this->redirect('blog');
+            }
+
+            return $this->twig->render("account/update.html.twig", [
+                'user' => $user,
+                'errors' => $errors,
+                'idUser' => $this->session['user']['id']
+            ]);
         }
 
         return $this->twig->render("account/update.html.twig", [
