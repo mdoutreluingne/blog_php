@@ -62,21 +62,7 @@ class UserController extends BaseController
             if (!$errors) {
                 $user = ModelFactory::getModel('User')->readData($userData['email'], "email");
 
-                if (isset($user) && empty($user)) {
-                    //Get data form
-                    $data = [];
-                    $data['first_name'] = $userData['firstname'];
-                    $data['last_name'] = $userData['lastname'];
-                    $data['email'] = $userData['email'];
-                    $data['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
-                    $data['role'] = $userData['role'];
-
-                    ModelFactory::getModel('User')->createData($data);
-
-                    $this->redirect('admin', ['success' => true]);
-                } else {
-                    $this->redirect('admin', ['error' => true]);
-                }
+                $this->checkEmailExist($userData, $user);
             }
 
             return $this->twig->render("user/create.html.twig", [
@@ -109,8 +95,8 @@ class UserController extends BaseController
             $errors = $this->validation->validate($userData, 'UserUpdate');
 
             if (!$errors) {
-                $last_name = htmlspecialchars($userData['lastname']);
-                $first_name = htmlspecialchars($userData['firstname']);
+                $last_name = htmlspecialchars($userData['last_name']);
+                $first_name = htmlspecialchars($userData['first_name']);
                 $email = htmlspecialchars($userData['email']);
                 $role = $userData['role'];
                 $password = $userData['password'] !== "" ? password_hash($userData['password'], PASSWORD_DEFAULT) : $userById['password'];
@@ -147,5 +133,31 @@ class UserController extends BaseController
         ModelFactory::getModel('User')->deleteData('id', ['id' => $idUser]);
 
         $this->redirect('admin', ['success' => true]);
+    }
+
+    /**
+     * checkUserExist
+     *
+     * @param array $dataPost
+     * @param mixed $user
+     * @return void
+     */
+    private function checkEmailExist(array $userData, $user): void
+    {
+        if (isset($user) && $user == false) {
+            //Get data form
+            $data = [];
+            $data['first_name'] = $userData['firstname'];
+            $data['last_name'] = $userData['lastname'];
+            $data['email'] = $userData['email'];
+            $data['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
+            $data['role'] = $userData['role'];
+
+            ModelFactory::getModel('User')->createData($data);
+
+            $this->redirect('admin', ['success' => true]);
+        } else {
+            $this->redirect('admin', ['error' => true]);
+        }
     }
 }

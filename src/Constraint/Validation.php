@@ -8,7 +8,11 @@ class Validation
 {
     public function validate($data, $name)
     {
-        if ($name === 'Post') {
+        $classValidation = "App\Constraint\\" . $name . "Validation";
+        $classValidationInstance = new $classValidation();
+        $errors = $classValidationInstance->check($data);
+        return $errors;
+        /* if ($name === 'Post') {
             $postValidation = new PostValidation();
             $errors = $postValidation->check($data);
             return $errors;
@@ -32,6 +36,6 @@ class Validation
             $userUpdateValidation = new UserUpdateValidation();
             $errors = $userUpdateValidation->check($data);
             return $errors;
-        }
+        } */
     }
 }

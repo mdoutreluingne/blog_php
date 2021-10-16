@@ -48,6 +48,24 @@ class ContactValidation extends Validation
         }
     }
 
+    private function checkEntries($name, $value, $field, $limit)
+    {
+        if ($this->constraint->notBlank($name, $value)) {
+
+            return $this->constraint->notBlank($field, $value);
+        }
+        
+        if ($this->constraint->minLength($name, $value, $limit)) {
+
+            return $this->constraint->minLength($field, $value, $limit);
+        }
+
+        if ($this->constraint->maxLength($name, $value, $limit)) {
+
+            return $this->constraint->maxLength($field, $value, $limit);
+        }
+    }
+
     private function checkLastname($name, $value)
     {
         if ($this->constraint->notBlank($name, $value)) {

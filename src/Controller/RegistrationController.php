@@ -35,21 +35,7 @@ class RegistrationController extends BaseController
             if (!$errors) {
                 $user = ModelFactory::getModel('User')->readData($dataPost['email'], "email");
 
-                if (isset($user) && empty($user)) {
-                    //Get data form
-                    $data = [];
-                    $data['first_name'] = $dataPost['firstname'];
-                    $data['last_name'] = $dataPost['lastname'];
-                    $data['email'] = $dataPost['email'];
-                    $data['password'] = password_hash($dataPost['password'], PASSWORD_DEFAULT);
-                    $data['role'] = "USER";
-
-                    ModelFactory::getModel('User')->createData($data);
-
-                    $this->redirect('security', ['success' => true, 'type' => 'login']);
-                } else {
-                    $this->redirect('registration', ['error' => true]);
-                }
+                $this->checkUserExist($dataPost, $user);
             }
 
             return $this->twig->render("registration/register.html.twig", [
@@ -62,5 +48,31 @@ class RegistrationController extends BaseController
         return $this->twig->render("registration/register.html.twig", [
             'error' => $this->isFormError(),
         ]);
+    }
+
+    /**
+     * checkUserExist
+     *
+     * @param array $dataPost
+     * @param mixed $user
+     * @return void
+     */
+    private function checkUserExist(array $dataPost, $user): void
+    {
+        if (isset($user) && $user == false) {
+            //Get data form
+            $data = [];
+            $data['first_name'] = $dataPost['firstname'];
+            $data['last_name'] = $dataPost['lastname'];
+            $data['email'] = $dataPost['email'];
+            $data['password'] = password_hash($dataPost['password'], PASSWORD_DEFAULT);
+            $data['role'] = "USER";
+
+            ModelFactory::getModel('User')->createData($data);
+
+            $this->redirect('security', ['success' => true, 'type' => 'login']);
+        } else {
+            $this->redirect('registration', ['error' => true]);
+        }
     }
 }

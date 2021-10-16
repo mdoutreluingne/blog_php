@@ -68,10 +68,7 @@ class AccountController extends BaseController
                 ModelFactory::getModel('User')->updateData($this->session['user']['id'], ['last_name' => $last_name, 'first_name' => $first_name, 'email' => $email, 'avatar' => $avatar], ['id' => $this->session['user']['id']]);
 
                 //Refresh session user
-                $user['id'] = $userByEmail['id'];
-                $user['role'] = $userByEmail['role'];
-                $user['avatar'] = $avatar;
-                $this->createSession($user);
+                $this->refreshSession($userByEmail, $user, $avatar);
 
                 $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin', ['success' => true]) : $this->redirect('blog');
             }
@@ -102,13 +99,37 @@ class AccountController extends BaseController
         
         if (isset($password['submit'])) {
 
-            if ($password['password'] == $password['repeatpassword']) {
+            //Call validation class
+            $errors = $this->validation->validate($password, 'Registration');
+
+            if (!$errors) {
                 ModelFactory::getModel('User')->updateData($this->session['user']['id'], ['password' => password_hash($password['password'], PASSWORD_DEFAULT)], ['id' => $this->session['user']['id']]);
 
                 $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin', ['success' => true]) : $this->redirect('blog');
             }
+
+            return $this->twig->render("account/change_password.html.twig", [
+                'errors' => $errors,
+                'idUser' => $this->session['user']['id']
+            ]);
         }
 
         return $this->twig->render("account/change_password.html.twig");
+    }
+
+    /**
+     * refreshSession
+     *
+     * @param array $userByEmail
+     * @param array $user
+     * @param mixed $avatar
+     * @return void
+     */
+    public function refreshSession(array $userByEmail, array $user, $avatar): void
+    {
+        $user['id'] = $userByEmail['id'];
+        $user['role'] = $userByEmail['role'];
+        $user['avatar'] = $avatar;
+        $this->createSession($user);
     }
 }
