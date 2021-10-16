@@ -55,21 +55,7 @@ class SecurityController extends BaseController
             if (!$errors) {
                 $user = ModelFactory::getModel('User')->readData($data['email'], "email");
 
-                if (isset($user) && !empty($user)) {
-                    $passwordForm = $data['password'];
-                    $passwordHash = $user['password'];
-
-                    if ($this->checkPassword($passwordForm, $passwordHash)) {
-                        //Initialize user session
-                        $this->createSession($user);
-                        //Redirect user in function of his role
-                        $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin') : $this->redirect('blog');
-                    } else {
-                        $this->redirect('security', ['error' => true, 'type' => 'login']);
-                    }
-                } else {
-                    $this->redirect('security', ['error' => true, 'type' => 'login']);
-                }
+                $this->checkUserExist($data, $user);
             }
 
             return $this->twig->render("security/login.html.twig", [
@@ -89,6 +75,17 @@ class SecurityController extends BaseController
     }
 
     /**
+     * logout
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        session_destroy();
+        $this->redirect('home');
+    }
+
+    /**
      * Check password user
      *
      * @param  mixed $outputPassword
@@ -104,13 +101,27 @@ class SecurityController extends BaseController
     }
 
     /**
-     * logout
+     * checkUserExist
      *
+     * @param array $data
      * @return void
      */
-    public function logout()
+    private function checkUserExist(array $data, array $user): void
     {
-        session_destroy();
-        $this->redirect('home');
+        if (isset($user) && !empty($user)) {
+            $passwordForm = $data['password'];
+            $passwordHash = $user['password'];
+
+            if ($this->checkPassword($passwordForm, $passwordHash)) {
+                //Initialize user session
+                $this->createSession($user);
+                //Redirect user in function of his role
+                $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin') : $this->redirect('blog');
+            } else {
+                $this->redirect('security', ['error' => true, 'type' => 'login']);
+            }
+        } else {
+            $this->redirect('security', ['error' => true, 'type' => 'login']);
+        }
     }
 }

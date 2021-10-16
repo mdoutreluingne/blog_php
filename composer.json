@@ -1,6 +1,6 @@
 {
-    "name": "maximedoutreluingne/blog_php",
-    "version": "1.0",
+    "name": "mdoutreluingne/blog_php",
+    "version": "0.1.0",
     "type": "project",
     "description": "P5 project Openclassrooms Blog PHP MVC",
     "license": "MIT",
@@ -18,7 +18,9 @@
     "require": {
         "php": ">=7.4",
         "twig/twig": "3.3.3",
-        "tracy/tracy": "^2.8",
         "phpmailer/phpmailer": "^6.5"
+    },
+    "require-dev": {
+        "tracy/tracy": "^2.8"
     }
 }

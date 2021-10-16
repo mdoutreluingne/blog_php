@@ -60,28 +60,15 @@ class ContactController extends BaseController
         $email = $data['email'];
         $message = $data['message'];
 
-
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer();
 
         try {
-            //Enable verbose debug output
-            $mail->SMTPDebug = 3;
-
-            //Encoding utf-8
-            $mail->CharSet = 'UTF-8';
-
-            //Send using SMTP
-            $mail->isSMTP();
-
-            //Server SMTP settings
-            $mail->Host = HOST;
-            $mail->Port = PORT;
-            $mail->SMTPAuth = false;
+            
+            $this->configMailer($mail);
 
             // From
             $mail->setFrom($email, $firstname . ' ' . $lastname);
-
             // To
             $mail->addAddress('admin@gmail.com', 'Contact Blog - Maxime Doutreluingne');
 
@@ -102,5 +89,28 @@ class ContactController extends BaseController
             //Redirect to contact page && error
             $this->redirect('contact', ['error' => true]);
         }
+    }
+
+    /**
+     * configMailer
+     *
+     * @param PHPMailer $mail
+     * @return void
+     */
+    public function configMailer(PHPMailer $mail): void
+    {
+        //Enable verbose debug output
+        $mail->SMTPDebug = 3;
+
+        //Encoding utf-8
+        $mail->CharSet = 'UTF-8';
+
+        //Send using SMTP
+        $mail->isSMTP();
+
+        //Server SMTP settings
+        $mail->Host = HOST;
+        $mail->Port = PORT;
+        $mail->SMTPAuth = false;
     }
 }

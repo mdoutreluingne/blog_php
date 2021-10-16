@@ -212,26 +212,39 @@ abstract class BaseController
             $extensions_autorisees = ['jpg', 'jpeg', 'png'];
 
             if (in_array($extension_upload, $extensions_autorisees)) {
-                //Generate a unique name for the picture
-                $pictureName = basename(md5(uniqid()) . '.' . $extension_upload);
-                switch ($type) {
-                    case 'post' == $type:
-                        //We can storage picture in the folder
-                        move_uploaded_file($picture['tmp_name'], 'img/posts/' . $pictureName);
-
-                        return $pictureName;
-                        break;
-                    case 'user' == $type:
-                        //Generate a unique name for the picture
-                        //$pictureName = basename(md5(uniqid()) . '.' . $extension_upload);
-                        //We can storage picture in the folder
-                        move_uploaded_file($picture['tmp_name'], 'img/avatar/' . $pictureName);
-
-                        return $pictureName;
-                        break;
-                    default:
-                }
+                //Storage file in function of the type
+                return $this->storageFile($type, $picture, $extension_upload);
             }  
+        }
+    }
+
+    /**
+     * storageFile
+     *
+     * @param string $type
+     * @param array $picture
+     * @param string $extension_upload
+     * @return string
+     */
+    private function storageFile(string $type, array $picture, string $extension_upload): string
+    {
+        //Generate a unique name for the picture
+        $pictureName = basename(md5(uniqid()) . '.' . $extension_upload);
+
+        switch ($type) {
+            case 'post' == $type:
+                //We can storage picture in the folder
+                move_uploaded_file($picture['tmp_name'], 'img/posts/' . $pictureName);
+
+                return $pictureName;
+                break;
+            case 'user' == $type:
+                //We can storage picture in the folder
+                move_uploaded_file($picture['tmp_name'], 'img/avatar/' . $pictureName);
+
+                return $pictureName;
+                break;
+            default:
         }
     }
 }

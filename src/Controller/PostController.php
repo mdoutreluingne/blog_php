@@ -67,12 +67,8 @@ class PostController extends BaseController
                 $content = htmlspecialchars($post['content']);
                 $date = new DateTime('now', new DateTimeZone('Europe/Paris'));
                 $date = $date->format('Y-m-d H:i:s');
-
+                $picture = $this->uploadImg("post", $_FILES['picture']) ?? null;
                 
-                if (isset($_FILES['picture']) && !empty($_FILES['picture'])) {
-                    $picture = $this->uploadImg("post", $_FILES['picture']);
-                }
-
                 $array = [
                     'user_id' => $this->session['user']['id'],
                     'title' => $title,
