@@ -29,7 +29,7 @@ class RegistrationController extends BaseController
         //Submit form
         if (isset($dataPost['submit'])) {
             //Call validation class
-            $errors = $this->validation->validate($dataPost, 'Registration');
+            $errors = $this->validateCreateUser($dataPost);
 
             if (!$errors) {
                 $user = ModelFactory::getModel('User')->readData($dataPost['email'], "email");

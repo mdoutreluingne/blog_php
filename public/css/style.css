@@ -730,8 +730,6 @@ section.featured-posts .comments {
   color: #999;
 }
 
-
-
 section.featured-posts .title i,
 section.featured-posts .date i,
 section.featured-posts .comments i {
@@ -1166,7 +1164,7 @@ footer.main-footer .title::after {
     margin-bottom: 0;
   }
 
-  footer.main-footer .latest-posts>a {
+  footer.main-footer .latest-posts > a {
     width: 100%;
     margin-bottom: 20px;
   }
@@ -1675,8 +1673,8 @@ STYLE SWITCHER FOR DEMO
   color: rgba(0, 0, 0, 0.3);
 }
 
-.navbar-light .navbar-nav .show>.nav-link,
-.navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .show > .nav-link,
+.navbar-light .navbar-nav .active > .nav-link,
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .nav-link.active {
   color: rgba(0, 0, 0, 0.9);
@@ -1717,8 +1715,8 @@ STYLE SWITCHER FOR DEMO
   color: rgba(255, 255, 255, 0.25);
 }
 
-.navbar-dark .navbar-nav .show>.nav-link,
-.navbar-dark .navbar-nav .active>.nav-link,
+.navbar-dark .navbar-nav .show > .nav-link,
+.navbar-dark .navbar-nav .active > .nav-link,
 .navbar-dark .navbar-nav .nav-link.show,
 .navbar-dark .navbar-nav .nav-link.active {
   color: white;
@@ -1789,7 +1787,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-primary:active,
 .btn-primary.active,
-.show>.btn-primary.dropdown-toggle {
+.show > .btn-primary.dropdown-toggle {
   background-color: #868686;
   background-image: none;
   border-color: gray;
@@ -1821,7 +1819,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-secondary:active,
 .btn-secondary.active,
-.show>.btn-secondary.dropdown-toggle {
+.show > .btn-secondary.dropdown-toggle {
   background-color: #727b84;
   background-image: none;
   border-color: #6c757d;
@@ -1853,7 +1851,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-success:active,
 .btn-success.active,
-.show>.btn-success.dropdown-toggle {
+.show > .btn-success.dropdown-toggle {
   background-color: #218838;
   background-image: none;
   border-color: #1e7e34;
@@ -1885,7 +1883,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-info:active,
 .btn-info.active,
-.show>.btn-info.dropdown-toggle {
+.show > .btn-info.dropdown-toggle {
   background-color: #138496;
   background-image: none;
   border-color: #117a8b;
@@ -1917,7 +1915,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-warning:active,
 .btn-warning.active,
-.show>.btn-warning.dropdown-toggle {
+.show > .btn-warning.dropdown-toggle {
   background-color: #e0a800;
   background-image: none;
   border-color: #d39e00;
@@ -1949,7 +1947,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-danger:active,
 .btn-danger.active,
-.show>.btn-danger.dropdown-toggle {
+.show > .btn-danger.dropdown-toggle {
   background-color: #c82333;
   background-image: none;
   border-color: #bd2130;
@@ -1981,7 +1979,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-light:active,
 .btn-light.active,
-.show>.btn-light.dropdown-toggle {
+.show > .btn-light.dropdown-toggle {
   background-color: #e2e6ea;
   background-image: none;
   border-color: #dae0e5;
@@ -2013,7 +2011,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-dark:active,
 .btn-dark.active,
-.show>.btn-dark.dropdown-toggle {
+.show > .btn-dark.dropdown-toggle {
   background-color: #23272b;
   background-image: none;
   border-color: #1d2124;
@@ -2046,7 +2044,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-outline-primary:active,
 .btn-outline-primary.active,
-.show>.btn-outline-primary.dropdown-toggle {
+.show > .btn-outline-primary.dropdown-toggle {
   color: #fff;
   background-color: #999;
   border-color: #999;
@@ -2079,7 +2077,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-outline-secondary:active,
 .btn-outline-secondary.active,
-.show>.btn-outline-secondary.dropdown-toggle {
+.show > .btn-outline-secondary.dropdown-toggle {
   color: #fff;
   background-color: #868e96;
   border-color: #868e96;
@@ -2112,7 +2110,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-outline-success:active,
 .btn-outline-success.active,
-.show>.btn-outline-success.dropdown-toggle {
+.show  >  .btn-outline-success.dropdown-toggle {
   color: #fff;
   background-color: #28a745;
   border-color: #28a745;
@@ -2145,7 +2143,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-outline-info:active,
 .btn-outline-info.active,
-.show>.btn-outline-info.dropdown-toggle {
+.show  >  .btn-outline-info.dropdown-toggle {
   color: #fff;
   background-color: #17a2b8;
   border-color: #17a2b8;
@@ -2178,7 +2176,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-outline-warning:active,
 .btn-outline-warning.active,
-.show>.btn-outline-warning.dropdown-toggle {
+.show  >  .btn-outline-warning.dropdown-toggle {
   color: #fff;
   background-color: #ffc107;
   border-color: #ffc107;
@@ -2211,7 +2209,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-outline-danger:active,
 .btn-outline-danger.active,
-.show>.btn-outline-danger.dropdown-toggle {
+.show  >  .btn-outline-danger.dropdown-toggle {
   color: #fff;
   background-color: #dc3545;
   border-color: #dc3545;
@@ -2244,7 +2242,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-outline-light:active,
 .btn-outline-light.active,
-.show>.btn-outline-light.dropdown-toggle {
+.show > .btn-outline-light.dropdown-toggle {
   color: #fff;
   background-color: #f8f9fa;
   border-color: #f8f9fa;
@@ -2277,7 +2275,7 @@ STYLE SWITCHER FOR DEMO
 
 .btn-outline-dark:active,
 .btn-outline-dark.active,
-.show>.btn-outline-dark.dropdown-toggle {
+.show > .btn-outline-dark.dropdown-toggle {
   color: #fff;
   background-color: #343a40;
   border-color: #343a40;
@@ -2920,7 +2918,7 @@ input[type=text] {
   font-weight: bold;
   outline: 0;
   margin-bottom: 20px;
-  padding-left: 0px;
+  padding-left: 0;
 }
 
 input[type=email] {
