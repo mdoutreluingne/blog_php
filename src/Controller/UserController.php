@@ -57,7 +57,7 @@ class UserController extends BaseController
         //Submit form
         if (isset($userData['submit'])) {
             //Call validation class
-            $errors = $this->validation->validate($userData, 'Registration');
+            $errors = $this->validateCreateUser($userData);
 
             if (!$errors) {
                 $user = ModelFactory::getModel('User')->readData($userData['email'], "email");

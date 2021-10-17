@@ -77,7 +77,7 @@ $(document).ready(function () {
                 "background-position": "left -" + scroll / 8 + "px"
             });
         } else {
-            $('section.divider').css({
+            $("section.divider").css({
                 "background-position": "center bottom"
             });
         }

@@ -16,6 +16,8 @@ class RegistrationValidation extends Validation
             }
             //Call constraint for repeatpassword
             if ($key === 'repeatpassword') {
+               /*  var_dump($password, $value);
+                die; */
                 $error = $this->checkRepeatPassword($key, $password, $value);
                 $this->addError($key, $error);
             }
@@ -29,13 +31,13 @@ class RegistrationValidation extends Validation
     private function checkField($name, $value)
     {
         if ($name === 'lastname') {
-            $error = $this->checkEntries($name, $value, 'Nom', 2, 50);
+            $error = $this->checkEntries($name, $value, 'Nom', 5, 50);
             $this->addError($name, $error);
         } elseif ($name === 'firstname') {
-            $error = $this->checkEntries($name, $value, 'Prénom', 2, 50);
+            $error = $this->checkEntries($name, $value, 'Prénom', 5, 50);
             $this->addError($name, $error);
         } elseif ($name === 'email') {
-            $error = $this->checkEntries($name, $value, 'Email', 5, 255);
+            $error = $this->checkEntries($name, $value, 'Email', 10, 255);
             $this->addError($name, $error);
         } elseif ($name === 'password') {
             $error = $this->checkEntries($name, $value, 'Mot de passe', 2, null);
@@ -51,8 +53,8 @@ class RegistrationValidation extends Validation
         if ($this->constraint->minLength($name, $repeatpassword, 6)) {
             return $this->constraint->minLength('Mot de passe', $repeatpassword, 6);
         }
-        if ($this->constraint->repeatPassword($name, $password, $repeatpassword)) {
-            return $this->constraint->repeatPassword('Mot de passe', $password, $repeatpassword);
+        if ($this->constraint->repeatPassword($password, $repeatpassword)) {
+            return $this->constraint->repeatPassword($password, $repeatpassword);
         }
     }
 }
