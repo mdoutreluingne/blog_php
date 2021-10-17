@@ -9,7 +9,7 @@ Un blog simple en PHP où tout le monde peut soumettre et gérer des articles.
 
 Cloner le projet sur votre disque dur avec la commande :
 ```text
-git clone https://github.com/thomas-claireau/PHP-P5-Openclassrooms.git
+git clone https://github.com/mdoutreluingne/blog_php.git
 ```
 
 Ensuite, effectuez la commande "composer install" depuis le répertoire du projet cloné, afin d'installer les librairies nécessaires :
@@ -27,9 +27,9 @@ composer install
 // Le host de votre projet et le nom(dbname) de la base de donnée
 define("DB_DSN", "mysql:host=localhost;dbname=blog_php");
 // L'identifiant d'accès
-define('DB_USER', $DB_USER);
+define('DB_USER', "root");
 // Le mot de passe d'accès
-define('DB_PASS', $DB_PASS);
+define('DB_PASS', "");
 ````
 
 ### Envoi des mails
@@ -37,6 +37,7 @@ define('DB_PASS', $DB_PASS);
 Si vous souhaitez utiliser un serveur de mail, afin d'envoyer des mails, vous pouvez le configurer dans `config/mailer.php`.
 
 ## Identifiant de connexion
+
 Email : admin.admin@gmail.com
 Mot de passe : adminadmin
 ---
