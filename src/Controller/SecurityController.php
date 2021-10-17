@@ -91,12 +91,17 @@ class SecurityController extends BaseController
      * @param  mixed $outputPassword
      * @param  mixed $passwordHash
      *
-     * @return bool
+     * @return void
      */
-    private function checkPassword($outputPassword, $passwordHash): bool
+    private function checkPassword($outputPassword, $passwordHash, array $user): void
     {
-        if ($outputPassword && $passwordHash) {
-            return password_verify($outputPassword, $passwordHash);
+        if (password_verify($outputPassword, $passwordHash)) {
+            //Initialize user session
+            $this->createSession($user);
+            //Redirect user in function of his role
+            $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin') : $this->redirect('blog');
+        } else {
+            $this->redirect('security', ['error' => true, 'type' => 'login']);
         }
     }
 
@@ -104,22 +109,16 @@ class SecurityController extends BaseController
      * checkUserExist
      *
      * @param array $data
+     * @param array $user
      * @return void
      */
     private function checkUserExist(array $data, array $user): void
     {
-        if (isset($user) && !empty($user)) {
+        if (isset($user)) {
             $passwordForm = $data['password'];
             $passwordHash = $user['password'];
 
-            if ($this->checkPassword($passwordForm, $passwordHash)) {
-                //Initialize user session
-                $this->createSession($user);
-                //Redirect user in function of his role
-                $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin') : $this->redirect('blog');
-            } else {
-                $this->redirect('security', ['error' => true, 'type' => 'login']);
-            }
+            $this->checkPassword($passwordForm, $passwordHash, $user);
         } else {
             $this->redirect('security', ['error' => true, 'type' => 'login']);
         }

@@ -19,6 +19,7 @@ abstract class BaseController
      */
     protected $twig = null;
     protected $session = null;
+    protected $files = null;
     protected $validation;
 
     /**
@@ -29,6 +30,7 @@ abstract class BaseController
     {
         session_start();
         $this->session = filter_var_array($_SESSION);
+        $this->files = filter_var_array($_FILES);
         $this->validation = new Validation();
 
         $this->initTwig();

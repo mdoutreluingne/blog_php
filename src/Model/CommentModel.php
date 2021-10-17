@@ -11,24 +11,24 @@ class CommentModel extends MainModel
 {
     /**
      * Display a post
-     * @param int $id
+     * @param int $idPost
      * @return array|mixed
      */
-    public function findComentByPost(int $id)
+    public function findComentByPost(int $idPost)
     {
-        $query = "SELECT comment.*, user.last_name, user.first_name FROM " . $this->table . " JOIN user ON user.id = comment.user_id WHERE comment.validated = 1 AND comment.post_id = " . $id;
+        $query = "SELECT comment.*, user.last_name, user.first_name FROM " . $this->table . " JOIN user ON user.id = comment.user_id WHERE comment.validated = 1 AND comment.post_id = " . $idPost;
 
         return $this->database->getAllData($query);
     }
 
     /**
      * Count comment by post
-     * @param int $id
+     * @param int $idPost
      * @return array|mixed
      */
-    public function countCommentByPost(int $id)
+    public function countCommentByPost(int $idPost)
     {
-        $query = "SELECT COUNT(*) as countComment FROM " . $this->table . " WHERE comment.validated = 1 AND post_id = " . $id;
+        $query = "SELECT COUNT(*) as countComment FROM " . $this->table . " WHERE comment.validated = 1 AND post_id = " . $idPost;
 
         return $this->database->getAllData($query);
     }
@@ -46,12 +46,12 @@ class CommentModel extends MainModel
 
     /**
      * Display a comment
-     * @param int $int
+     * @param int $idComment
      * @return array|mixed
      */
-    public function findCommentById(int $id)
+    public function findCommentById(int $idComment)
     {
-        $query = "SELECT comment.*, user.last_name, user.first_name, post.title FROM " . $this->table . " JOIN user ON user.id = comment.user_id JOIN post ON post.id = comment.post_id WHERE comment.id = " . $id;
+        $query = "SELECT comment.*, user.last_name, user.first_name, post.title FROM " . $this->table . " JOIN user ON user.id = comment.user_id JOIN post ON post.id = comment.post_id WHERE comment.id = " . $idComment;
 
         return $this->database->getAllData($query);
     }

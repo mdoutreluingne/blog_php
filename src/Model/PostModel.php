@@ -48,12 +48,12 @@ class PostModel extends MainModel
 
     /**
      * Display a post
-     * @param int $int
+     * @param int $idPost
      * @return array|mixed
      */
-    public function findPostById(int $id)
+    public function findPostById(int $idPost)
     {
-        $query = "SELECT post.*, user.last_name, user.first_name, user.avatar FROM " . $this->table . " JOIN user ON user.id = post.user_id WHERE post.id = " . $id;
+        $query = "SELECT post.*, user.last_name, user.first_name, user.avatar FROM " . $this->table . " JOIN user ON user.id = post.user_id WHERE post.id = " . $idPost;
 
         return $this->database->getAllData($query);
     }

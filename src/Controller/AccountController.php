@@ -63,7 +63,7 @@ class AccountController extends BaseController
                 $last_name = htmlspecialchars($user['last_name']);
                 $first_name = htmlspecialchars($user['first_name']);
                 $email = htmlspecialchars($user['email']);
-                $avatar = $_FILES['avatar']['name'] !== "" ? $this->uploadImg("user", $_FILES['avatar']) : $userByEmail['avatar'];
+                $avatar = $this->files['avatar']['name'] !== "" ? $this->uploadImg("user", $this->files['avatar']) : $userByEmail['avatar'];
 
                 ModelFactory::getModel('User')->updateData($this->session['user']['id'], ['last_name' => $last_name, 'first_name' => $first_name, 'email' => $email, 'avatar' => $avatar], ['id' => $this->session['user']['id']]);
 

@@ -22,7 +22,7 @@ class Constraint
             return 'Le champ ' . $name . ' doit contenir au maximum ' . $maxSize . ' caractères';
         }
     }
-    public function repeatPassword($name, $value, $maxSize)
+    public function repeatPassword($value, $maxSize)
     {
         if ($value != $maxSize) {
             return 'Les mot de passe ne sont pas identique';

@@ -17,8 +17,8 @@ class Validation
     public function validate($data, $name)
     {
         $classValidation = "App\Constraint\\" . $name . "Validation";
-        $classValidationInstance = new $classValidation();
-        $errors = $classValidationInstance->check($data);
+        $classValidationInit = new $classValidation();
+        $errors = $classValidationInit->check($data);
 
         return $errors;
     }
