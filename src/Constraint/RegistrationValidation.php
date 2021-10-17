@@ -31,13 +31,13 @@ class RegistrationValidation extends Validation
     private function checkField($name, $value)
     {
         if ($name === 'lastname') {
-            $error = $this->checkEntries($name, $value, 'Nom', 5, 50);
+            $error = $this->checkEntries($name, $value, 'Nom', 3, 50);
             $this->addError($name, $error);
         } elseif ($name === 'firstname') {
-            $error = $this->checkEntries($name, $value, 'Prénom', 5, 50);
+            $error = $this->checkEntries($name, $value, 'Prénom', 3, 50);
             $this->addError($name, $error);
         } elseif ($name === 'email') {
-            $error = $this->checkEntries($name, $value, 'Email', 10, 255);
+            $error = $this->checkEntries($name, $value, 'Email', 6, 255);
             $this->addError($name, $error);
         } elseif ($name === 'password') {
             $error = $this->checkEntries($name, $value, 'Mot de passe', 2, null);
