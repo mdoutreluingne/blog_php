@@ -1,8 +1,8 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-CREATE DATABASE blog_php_test CHARACTER SET 'utf8';
-USE blog_php_test;
+CREATE DATABASE blog_php CHARACTER SET 'utf8';
+USE blog_php;
 
 --
 -- Structure de la table comment
