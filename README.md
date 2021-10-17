@@ -12,14 +12,13 @@ Lancer la commande "composer install" depuis le répertoire du projet afin d'ins
 composer install
 ```
 
-#### Accès base de données
+### Accès base de données
 
 Importer la base de données avec le fichier `config/db.sql`. Ensuite configurer le fichier `config/db.php` pour la connection à votre base de données.
 
 ### Envoi des mails
 
 Si vous souhaitez utilisé un serveur de mail afin d'envoyer des mails, vous pouvez le configurer dans `config/mailer.php`.
-
 ---
 Tout est prêt, vous pouvez naviguer sur le site !
 

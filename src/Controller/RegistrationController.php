@@ -28,7 +28,6 @@ class RegistrationController extends BaseController
 
         //Submit form
         if (isset($dataPost['submit'])) {
-
             //Call validation class
             $errors = $this->validation->validate($dataPost, 'Registration');
 

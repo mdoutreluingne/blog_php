@@ -62,21 +62,17 @@ class PostController extends BaseController
             $errors = $this->validation->validate($post, 'Post');
             
             if (!$errors) {
-                $title = htmlspecialchars($post['title']);
-                $chapo = htmlspecialchars($post['chapo']);
-                $content = htmlspecialchars($post['content']);
                 $date = new DateTime('now', new DateTimeZone('Europe/Paris'));
                 $date = $date->format('Y-m-d H:i:s');
-                $picture = $this->uploadImg("post", $_FILES['picture']) ?? null;
-                
+
                 $array = [
                     'user_id' => $this->session['user']['id'],
-                    'title' => $title,
+                    'title' => htmlspecialchars($post['title']),
                     'created_at' => $date,
                     'updated_at' => $date,
-                    'chapo' => $chapo,
-                    'content' => $content,
-                    'picture' => $picture,
+                    'chapo' => htmlspecialchars($post['chapo']),
+                    'content' => htmlspecialchars($post['content']),
+                    'picture' => $this->uploadImg("post", $this->files['picture']) ?? null,
                 ];
 
                 ModelFactory::getModel('Post')->createData($array);
@@ -143,7 +139,7 @@ class PostController extends BaseController
                 $content = htmlspecialchars($post['content']);
                 $date = new DateTime('now', new DateTimeZone('Europe/Paris'));
                 $date = $date->format('Y-m-d H:i:s');
-                $picture = $_FILES['picture']['name'] !== "" ? $this->uploadImg("post", $_FILES['picture']) : $postById[0]['picture'];
+                $picture = $this->files['picture']['name'] !== "" ? $this->uploadImg("post", $this->files['picture']) : $postById[0]['picture'];
 
                 ModelFactory::getModel('Post')->updateData($idPost, ["title" => $title, "updated_at" => $date, "chapo" => $chapo, "content" => $content, "picture" => $picture], ["id" => $idPost]);
 
