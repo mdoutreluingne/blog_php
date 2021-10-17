@@ -249,9 +249,4 @@ abstract class BaseController
             default:
         }
     }
-
-    protected function validateCreateUser(array $data)
-    {
-        return $this->validation->validate($data, 'Registration');
-    }
 }

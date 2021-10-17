@@ -156,7 +156,7 @@ i[class*="icon-"] {
   z-index: 9999 !important;
 }
 
-/*=== Helpers ===*/
+/* Helpers */
 .bg-red {
   background: #ff7676 !important;
   color: #fff;
@@ -203,7 +203,7 @@ i[class*="icon-"] {
 }
 
 .bg-violet {
-  background: #796AEE !important;
+  background: #796aee !important;
   color: #fff;
 }
 
@@ -252,11 +252,11 @@ i[class*="icon-"] {
 }
 
 .text-violet {
-  color: #796AEE;
+  color: #796aee;
 }
 
 .text-violet:hover {
-  color: #796AEE;
+  color: #796aee;
 }
 
 .text-blue {
@@ -361,8 +361,6 @@ p.text-hero i {
 p.small-text-hero {
   font-size: 1em;
 }
-
-
 
 .pagination-template li.page-item {
   margin: 0 5px;
@@ -1598,7 +1596,7 @@ STYLE SWITCHER FOR DEMO
 #style-switch-button {
   position: fixed;
   top: 120px;
-  left: 0px;
+  left: 0;
   border-radius: 0;
   z-index: 100000;
 }
@@ -2787,7 +2785,7 @@ a.text-dark:hover {
   background-color: #08b8f8;
 }
 
-/*CONTACT */
+/* CONTACT */
 .contact {
   padding-bottom: 100px;
   margin-top: 50px;
@@ -2916,9 +2914,9 @@ a.text-dark:hover {
 
 input[type=text] {
   border: none;
-  border-bottom: 2px solid #0DB8DE;
+  border-bottom: 2px solid #0db8de;
   border-top: 0px;
-  border-radius: 0px;
+  border-radius: 0;
   font-weight: bold;
   outline: 0;
   margin-bottom: 20px;
@@ -2927,23 +2925,23 @@ input[type=text] {
 
 input[type=email] {
   border: none;
-  border-bottom: 2px solid #0DB8DE;
-  border-top: 0px;
-  border-radius: 0px;
+  border-bottom: 2px solid #0db8de;
+  border-top: 0;
+  border-radius: 0;
   font-weight: bold;
   outline: 0;
   margin-bottom: 20px;
-  padding-left: 0px;
+  padding-left: 0;
 }
 
 input[type=password] {
   border: none;
-  border-bottom: 2px solid #0DB8DE;
-  border-top: 0px;
-  border-radius: 0px;
+  border-bottom: 2px solid #0db8de;
+  border-top: 0;
+  border-radius: 0;
   font-weight: bold;
   outline: 0;
-  padding-left: 0px;
+  padding-left: 0;
   margin-bottom: 20px;
 }
 
@@ -2951,7 +2949,7 @@ input[type=password] {
   border-color: inherit;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-bottom: 2px solid #0DB8DE;
+  border-bottom: 2px solid #0db8de;
   outline: 0;
 }
 
@@ -2961,28 +2959,28 @@ input:focus {
 }
 
 label {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .form-control-label {
   font-size: 14px;
-  color: #6C6C6C;
+  color: #6c6c6c;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
 .btn-outline-primary {
-  border-color: #0DB8DE;
-  color: #0DB8DE;
-  border-radius: 0px;
+  border-color: #0db8de;
+  color: #0db8de;
+  border-radius: 0;
   font-weight: bold;
   letter-spacing: 1px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 .btn-outline-primary:hover {
-  background-color: #0DB8DE;
-  right: 0px;
+  background-color: #0db8de;
+  right: 0;
 }
 
 .login-btm {
@@ -2990,22 +2988,22 @@ label {
 }
 
 .login-button {
-  padding-right: 0px;
+  padding-right: 0;
   text-align: right;
   margin-bottom: 25px;
 }
 
 .login-text {
   text-align: left;
-  padding-left: 0px;
-  color: #A2A4A4;
+  padding-left: 0;
+  color: #a2a4a4;
 }
 
 .loginbttm {
-  padding: 0px;
+  padding: 0;
 }
 
-/*Update account*/
+/* Update account */
 .preview {
   padding: 10px;
   position: relative;
@@ -3027,7 +3025,6 @@ label {
   height: 200px;
   border-radius: 100%;
   position: absolute;
-  /* Tweak the position property if the element seems to be unfit */
   top: 10px;
   left: 135px;
   background: linear-gradient(180deg, transparent, black);
