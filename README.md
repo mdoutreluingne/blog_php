@@ -8,7 +8,7 @@ Un blog simple en PHP où tout le monde peut soumettre et gérer des articles. A
 ## Configuration du serveur requise
 
 *   MySQL or MariaDB
-*   Apache2 (with mod_rewrite activated)
+*   Apache2 (avec le mod_rewrite activé)
 *   Php 7.4
 *   Composer
 *   git
