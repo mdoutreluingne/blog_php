@@ -1,9 +1,17 @@
 # Blog php
 
-Un blog simple en PHP où tout le monde peut soumettre et gérer des articles.
+Un blog simple en PHP où tout le monde peut soumettre et gérer des articles. Application des principes MVC et POO en PHP.
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/04239d7c8539561697da/maintainability)](https://codeclimate.com/github/mdoutreluingne/blog_php/maintainability)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f613c11f527c44da83cfbb4534976dd9)](https://www.codacy.com/gh/mdoutreluingne/blog_php/dashboard?utm_source=github.com&utm_medium=referral&utm_content=mdoutreluingne/blog_php&utm_campaign=Badge_Grade)
+
+## Configuration du serveur requise
+
+*   MySQL or MariaDB
+*   Apache2 (with mod_rewrite activated)
+*   Php 7.4
+*   Composer
+*   git
 
 ## Installation du projet
 
@@ -12,7 +20,7 @@ Cloner le projet sur votre disque dur avec la commande :
 git clone https://github.com/mdoutreluingne/blog_php.git
 ```
 
-Ensuite, effectuez la commande "composer install" depuis le répertoire du projet cloné, afin d'installer les librairies nécessaires :
+Ensuite, effectuez la commande "composer install" depuis le répertoire du projet cloné, afin d'installer les dépendances nécessaires :
 ```text
 composer install
 ```
@@ -38,8 +46,9 @@ Si vous souhaitez utiliser un serveur de mail, afin d'envoyer des mails, vous po
 
 ## Identifiant de connexion
 
-Email : admin.admin@gmail.com
-Mot de passe : adminadmin
+*   Email : admin.admin@gmail.com
+*   Mot de passe : adminadmin
+
 ---
 Tout est prêt, vous pouvez naviguer sur le site !
 
