@@ -18,11 +18,11 @@ $(document).ready(function () {
 
         if ($(this).val() !== "") {
 
-            var theme_csspath = "css/style." + $(this).val() + ".css";
+            var themeCsspath = "css/style." + $(this).val() + ".css";
 
-            alternateColour.attr("href", theme_csspath);
+            alternateColour.attr("href", themeCsspath);
 
-            $.cookie("theme_csspath", theme_csspath, {
+            $.cookie("theme_csspath", themeCsspath, {
                 expires: 365,
                 path: document.URL.substr(0, document.URL.lastIndexOf("/"))
             });
@@ -30,20 +30,6 @@ $(document).ready(function () {
         }
 
         return false;
-    });
-
-
-    // ------------------------------------------------------- //
-    // Equalixe height
-    // ------------------------------------------------------ //
-    function equalizeHeight(x, y) {
-        var textHeight = $(x).height();
-        $(y).css(min - height, textHeight);
-    }
-    equalizeHeight(".featured-posts .text", ".featured-posts .image");
-
-    $(window).resize(function () {
-        equalizeHeight(".featured-posts .text", ".featured-posts .image");
     });
 
 

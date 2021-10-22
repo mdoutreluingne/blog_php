@@ -18,7 +18,7 @@
         </header>
         <div class="blog-posts">
             {% for lastPost in lastPosts %}
-            <a href="index.php?access=post&id={{ lastPost.id }}">
+            <a href="index.php?access=post&id={{ lastPost.id }}&action=read">
                 <div class="item d-flex align-items-center">
                     <div class="image">
                         {% if lastPost.picture != null %}
