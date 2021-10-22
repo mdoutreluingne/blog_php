@@ -17,7 +17,7 @@ Ensuite, effectuez la commande "composer install" depuis le répertoire du proje
 composer install
 ```
 
-### Paramétrage de la base de données :
+### Paramétrage de la base de données
 
 1) Importer la base de données avec le fichier `config/db.sql` en utilisant par exemple phpmyadmin. 
 2) Ensuite configurer le fichier `config/db.php` pour la connexion à votre base de données, et remplaçant les valeurs par les vôtres :
@@ -40,6 +40,5 @@ Si vous souhaitez utiliser un serveur de mail, afin d'envoyer des mails, vous po
 
 Email : admin.admin@gmail.com
 Mot de passe : adminadmin
----
-Tout est prêt, vous pouvez naviguer sur le site !
 
+### Tout est prêt, vous pouvez naviguer sur le site !
