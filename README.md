@@ -46,7 +46,11 @@ Si vous souhaitez utiliser un serveur de mail, afin d'envoyer des mails, vous po
 
 ## Identifiant de connexion
 
-Email : admin.admin@gmail.com
-Mot de passe : adminadmin
+*   Email : admin.admin@gmail.com
+*   Mot de passe : adminadmin
 
 ### Tout est prêt, vous pouvez naviguer sur le site
+
+### Arborescence du site
+
+![alt text](https://github.com/mdoutreluingne/blog_php/blob/master/public/img/arboresence.png?raw=true)
