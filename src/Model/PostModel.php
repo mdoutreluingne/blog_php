@@ -27,12 +27,15 @@ class PostModel extends MainModel
     public function listPosts(int $firstPage, int $perPage, ?string $search)
     {
         if ($search != null) {
-            $query = "SELECT post.*, user.last_name, user.first_name, user.avatar, (SELECT COUNT(c.post_id) FROM comment c WHERE c.post_id = post.id AND c.validated = 1) as countComment FROM " . $this->table . " JOIN user ON user.id = post.user_id WHERE post.title LIKE '%" . $search . "%'" . "ORDER BY post.updated_at DESC LIMIT " . $firstPage . ", " . $perPage;
-        } else {
-            $query = "SELECT post.*, user.last_name, user.first_name, user.avatar, (SELECT COUNT(c.post_id) FROM comment c WHERE c.post_id = post.id AND c.validated = 1) as countComment FROM " . $this->table . " JOIN user ON user.id = post.user_id ORDER BY post.updated_at DESC LIMIT " . $firstPage . ", " . $perPage;
+            
+            return $this->database->getAllData(
+                "SELECT post.*, user.last_name, user.first_name, user.avatar, (SELECT COUNT(c.post_id) FROM comment c WHERE c.post_id = post.id AND c.validated = 1) as countComment FROM " . $this->table . " JOIN user ON user.id = post.user_id WHERE post.title LIKE '%" . $search . "%'" . "ORDER BY post.updated_at DESC LIMIT " . $firstPage . ", " . $perPage
+            );
         }
-        
-        return $this->database->getAllData($query);
+
+        return $this->database->getAllData(
+            "SELECT post.*, user.last_name, user.first_name, user.avatar, (SELECT COUNT(c.post_id) FROM comment c WHERE c.post_id = post.id AND c.validated = 1) as countComment FROM " . $this->table . " JOIN user ON user.id = post.user_id ORDER BY post.updated_at DESC LIMIT " . $firstPage . ", " . $perPage
+        );        
     }
 
     /**

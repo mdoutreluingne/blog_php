@@ -156,8 +156,8 @@ class UserController extends BaseController
             ModelFactory::getModel('User')->createData($data);
 
             $this->redirect('admin', ['success' => true]);
-        } else {
-            $this->redirect('admin', ['error' => true]);
         }
+
+        $this->redirect('admin', ['error' => true]);
     }
 }

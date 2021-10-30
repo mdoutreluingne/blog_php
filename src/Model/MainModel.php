@@ -73,12 +73,17 @@ abstract class MainModel
     public function readData(string $value, string $key = null)
     {
         if (isset($key)) {
-            $query = "SELECT * FROM " . $this->table . " WHERE " . $key . " = ?";
-        } else {
-            $query = "SELECT * FROM " . $this->table . " WHERE id = ?";
+
+            return $this->database->getData(
+                "SELECT * FROM " . $this->table . " WHERE " . $key . " = ?",
+                [$value]
+            );
         }
 
-        return $this->database->getData($query, [$value]);
+        return $this->database->getData(
+            "SELECT * FROM " . $this->table . " WHERE id = ?",
+            [$value]
+        );
     }
 
     /**

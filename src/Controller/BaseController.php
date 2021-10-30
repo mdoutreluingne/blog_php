@@ -127,9 +127,9 @@ abstract class BaseController
         $success = filter_input(INPUT_GET, 'success');
         if (isset($success)) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -210,12 +210,12 @@ abstract class BaseController
         //Test if the image has no error and less than 1 Mo
         if (isset($picture['name']) && $picture['error'] == 0 && $picture['size'] <= 1000000) {
             //Let's test if the extension is allowed
-            $extension_upload = pathinfo($picture['name'], PATHINFO_EXTENSION);
-            $extensions_autorisees = ['jpg', 'jpeg', 'png'];
+            $uploadExtension = pathinfo($picture['name'], PATHINFO_EXTENSION);
+            $allowedExtensions = ['jpg', 'jpeg', 'png'];
 
-            if (in_array($extension_upload, $extensions_autorisees)) {
+            if (in_array($uploadExtension, $allowedExtensions)) {
                 //Storage file in function of the type
-                return $this->storageFile($type, $picture, $extension_upload);
+                return $this->storageFile($type, $picture, $uploadExtension);
             }  
         }
     }
@@ -225,13 +225,13 @@ abstract class BaseController
      *
      * @param string $type
      * @param array $picture
-     * @param string $extension_upload
+     * @param string $uploadExtension
      * @return string
      */
-    private function storageFile(string $type, array $picture, string $extension_upload): string
+    private function storageFile(string $type, array $picture, string $uploadExtension): string
     {
         //Generate a unique name for the picture
-        $pictureName = basename(md5(uniqid()) . '.' . $extension_upload);
+        $pictureName = basename(md5(uniqid()) . '.' . $uploadExtension);
 
         switch ($type) {
             case 'post' == $type:
