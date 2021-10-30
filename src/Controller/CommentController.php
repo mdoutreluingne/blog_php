@@ -75,9 +75,9 @@ class CommentController extends BaseController
             ModelFactory::getModel('Comment')->createData($data);
 
             $this->redirect('post', ['success' => true, 'action' => 'read', 'id' => $this->getIdPost()]);
-        } else {
-            $this->redirect('post', ['error' => true, 'action' => 'read', 'id' => $this->getIdPost()]);
         }
+
+        $this->redirect('post', ['error' => true, 'action' => 'read', 'id' => $this->getIdPost()]);
     }
 
     /**

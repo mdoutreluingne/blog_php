@@ -70,8 +70,8 @@ class RegistrationController extends BaseController
             ModelFactory::getModel('User')->createData($data);
 
             $this->redirect('security', ['success' => true, 'type' => 'login']);
-        } else {
-            $this->redirect('registration', ['error' => true]);
         }
+
+        $this->redirect('registration', ['error' => true]);
     }
 }

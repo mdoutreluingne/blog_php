@@ -29,10 +29,10 @@ class SecurityController extends BaseController
             if ($type == "login") {
                 //Connect user
                 return $this->connexion();
-            } else {
-                //Logout user
-                $this->logout();
             }
+
+            //Logout user
+            $this->logout();
         }       
         
     }
