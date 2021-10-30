@@ -100,9 +100,9 @@ class SecurityController extends BaseController
             $this->createSession($user);
             //Redirect user in function of his role
             $this->session['user']['role'] == "ADMIN" ? $this->redirect('admin') : $this->redirect('blog');
-        } else {
-            $this->redirect('security', ['error' => true, 'type' => 'login']);
         }
+
+        $this->redirect('security', ['error' => true, 'type' => 'login']);
     }
 
     /**
@@ -119,8 +119,8 @@ class SecurityController extends BaseController
             $passwordHash = $user['password'];
 
             $this->checkPassword($passwordForm, $passwordHash, $user);
-        } else {
-            $this->redirect('security', ['error' => true, 'type' => 'login']);
         }
+
+        $this->redirect('security', ['error' => true, 'type' => 'login']);
     }
 }

@@ -68,12 +68,13 @@ class PostModel extends MainModel
     public function countPost(?string $search)
     {
         if ($search != null) {
-            $query = "SELECT COUNT(*) AS count_posts FROM " . $this->table . " WHERE post.title LIKE '%" . $search . "%'"; 
-        } else {
-            $query = "SELECT COUNT(*) AS count_posts FROM " . $this->table;
+            return $this->database->getAllData(
+                "SELECT COUNT(*) AS count_posts FROM " . $this->table . " WHERE post.title LIKE '%" . $search . "%'"
+            ); 
         }
-        
 
-        return $this->database->getAllData($query);
+        return $this->database->getAllData(
+            "SELECT COUNT(*) AS count_posts FROM " . $this->table
+        ); 
     }
 }
