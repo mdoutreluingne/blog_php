@@ -17,7 +17,7 @@
     },
     "require": {
         "php": ">=7.4",
-        "twig/twig": "3.3.3",
+        "twig/twig": "3.3.4",
         "phpmailer/phpmailer": "^6.5"
     },
     "require-dev": {
